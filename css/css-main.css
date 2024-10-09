@@ -188,7 +188,7 @@ footer {
   }
   
   .container {
-    width: 300px; /* Adjust based on desired size */
+    width: 600px; /* Adjust based on desired size */
     margin: 50px auto;
     background-color: #cfe0e8; /* Light blue background */
     padding: 20px;
@@ -289,4 +289,130 @@ footer {
   
   .submit-btn:hover {
     background-color: #4a7495; /* Darker blue on hover */
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  .container {
+    max-width: 700px;
+    width: 100%;
+    background-color: #d2e6ef;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Definition Box Styling */
+  .definition-box {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #437ca7;
+  }
+  
+  .word-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .word-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #333;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  
+  .btn.regenerate {
+    background-color: #437ca7;
+    color: white;
+  }
+  
+  .btn.edit {
+    background-color: #a7a7a7;
+    color: white;
+  }
+  
+  /* Definition and Examples */
+  .definition {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .example {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  
+  /* Save and Cancel Button Styling */
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .actions .btn {
+    width: 48%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .btn.save {
+    background-color: #437ca7;
+    color: white;
+  }
+  
+  .btn.cancel {
+    background-color: #7b5191;
+    color: white;
+  }
+
+  /* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .definition-box {
+      padding: 10px;
+    }
+  
+    .btn {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+    }
+  
+    .word-header h3 {
+      font-size: 1.1rem;
+    }
+  
+    .definition, .example {
+      font-size: 0.9rem;
+    }
+  
+    .actions .btn {
+      font-size: 0.9rem;
+      padding: 8px;
+    }
   }
