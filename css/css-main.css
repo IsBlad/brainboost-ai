@@ -41,7 +41,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #007bff;
+    color: #165497;
 }
 
 /* Login Button Styling */
@@ -58,7 +58,7 @@ nav a:hover {
 }
 
 .login-btn:hover {
-    background-color: #0056b3;
+    background-color: #165497;
 }
 
 /* Media Query for Screen Sizes Smaller Than 1085px */
@@ -131,7 +131,7 @@ body, html {
 }
 
 .gen-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #165497; /* Darker blue on hover */
 }
 
 /* Responsive Design */
@@ -190,8 +190,8 @@ footer {
   .container {
     width: 600px; /* Adjust based on desired size */
     margin: 50px auto;
+    padding: 0 60px;
     background-color: #cfe0e8; /* Light blue background */
-    padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
   }
@@ -199,13 +199,13 @@ footer {
   .tab {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
   }
   
   .tab button {
     background-color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 50px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -278,7 +278,7 @@ footer {
   .submit-btn {
     width: 100%;
     padding: 10px;
-    background-color: #5885af; /* Blue button */
+    background-color: #267CAE; /* Blue button */
     color: white;
     font-size: 16px;
     border: none;
@@ -288,7 +288,7 @@ footer {
   }
   
   .submit-btn:hover {
-    background-color: #4a7495; /* Darker blue on hover */
+    background-color: #165497; /* Darker blue on hover */
   }
 
 
