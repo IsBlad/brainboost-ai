@@ -339,7 +339,6 @@ footer {
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-left: 6px solid #437ca7;
   }
   
   .word-header {
@@ -351,6 +350,7 @@ footer {
   
   .word-header h3 {
     margin: 0;
+    margin-left: 15px;
     font-size: 1.3rem;
     color: #333;
   }
@@ -367,7 +367,12 @@ footer {
   }
   
   .btn.edit {
-    background-color: #a7a7a7;
+    background-color: #e6953e;
+    color: white;
+  }
+
+  .btn.edit:hover {
+    background-color: #d67e20;
     color: white;
   }
 
@@ -379,9 +384,21 @@ footer {
   }
   
   .example {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 4px;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .def-box, .example-box {
+    border: 1px solid #b7b6b6;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 5px;
+  }
+
+  legend {
+    padding: 0 3px;
+    font-size: 0.85rem;
   }
   
   /* Save and Cancel Button Styling */
@@ -397,14 +414,13 @@ footer {
     font-size: 1rem;
   }
   
-  .btn.save {
-    background-color: #437ca7;
-    color: white;
-  }
-  
   .btn.cancel {
-    background-color: #7b5191;
-    color: white;
+    background-color: #fff;
+    color: #437ca7;
+  }
+
+  .btn.cancel:hover {
+    background-color: #cececd;
   }
 
   .btn:hover {
