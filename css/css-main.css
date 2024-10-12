@@ -509,9 +509,9 @@ h2 {
   #add-word-btn {
     padding: 10px;
     font-size: 1rem;
-    background-color: #437ca7;
-    color: white;
-    border: none;
+    background-color: #fff;
+    color: #437ca7;
+    border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
@@ -520,8 +520,12 @@ h2 {
     text-align: center; /* Ensures text stays centered */
   }
 
+  #add-word-btn:hover {
+    background-color: #cececd;
+  }
+
   /* Save and Cancel Button Styling */
-.actions {
+.action {
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -529,12 +533,11 @@ h2 {
     padding-top: 20px; /* Adds space between the word inputs and the action buttons */
   }
   
-  .actions .btn {
+  .action .btn {
     width: 48%;
     padding: 10px;
     font-size: 1rem;
   }
-
 
   /* Responsive Design for Mobile */
 @media (max-width: 768px) {
