@@ -205,6 +205,7 @@ footer {
   .container {
     width: 600px; /* Adjust based on desired size */
     margin: 50px auto;
+    margin-bottom: 60px;
     padding: 0 60px;
     background-color: #cfe0e8; /* Light blue background */
     border-radius: 10px;
@@ -213,7 +214,7 @@ footer {
   
   .tab {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-bottom: 60px;
   }
   
@@ -451,3 +452,105 @@ footer {
       padding: 8px;
     }
   }
+
+
+
+
+
+
+
+
+.list {
+    max-width: 700px;
+    width: 100%;
+    margin: 50px auto;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Header (List Name) */
+h2 {
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Styling */
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Word Input Group */
+  .word-input-group {
+    display: flex;
+    flex-direction: column;
+    flex-basis: calc(50% - 20px); /* Each input takes up 50% of the container width minus gap */
+  }
+  
+  .word-input-group label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .input-text {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Button to Add Word */
+  #add-word-btn {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #437ca7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box; /* Makes sure it takes up the same space as the inputs */
+    flex-basis: calc(50% - 20px); /* Takes 50% of the container width minus gap */
+    text-align: center; /* Ensures text stays centered */
+  }
+
+  /* Save and Cancel Button Styling */
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    padding-top: 20px; /* Adds space between the word inputs and the action buttons */
+  }
+  
+  .actions .btn {
+    width: 48%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+
+  /* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  form {
+    flex-direction: column; /* Stacks everything vertically on small screens */
+  }
+
+  .word-input-group {
+    flex-basis: 100%; /* Each input takes the full width on small screens */
+  }
+
+  #add-word-btn {
+    flex-basis: 100%; /* Add button takes full width on small screens */
+  }
+
+  .actions .btn {
+    width: 100%; /* Buttons take full width on smaller screens */
+  }
+}

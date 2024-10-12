@@ -20,18 +20,30 @@
     </header>
       <body>
         <main>
-            <div class="container">
-                <h2 id="listNameTitle">Word List</h2>
+            <div class="list">
+                <!-- Header with List Name -->
+                <h2 id="list-name">Name of List</h2>
+                
+                <!-- Form for Adding Words -->
+                <form id="word-form">
+                  <div class="word-input-group">
+                    <input type="text" id="word-1" name="word-1" class="input-text" placeholder="Enter word here">
+                  </div>
             
-                <!-- Form for entering words -->
-                <form id="wordForm">
-                  <!-- Word input fields will be inserted here dynamically -->
+                  <div class="word-input-group">
+                    <input type="text" id="word-2" name="word-2" class="input-text" placeholder="Enter word here">
+                  </div>
+            
+                  <!-- Button to add more words dynamically -->
+                  <button type="button" id="add-word-btn" class="btn add-word">+ Add Word</button>
+                  
+                  <!-- Save and Cancel Buttons -->
+                  <div class="actions">
+                    <button type="submit" class="btn gen-def">Generate Definition</button>
+                  </div>
                 </form>
-            
-                <!-- Submit Button -->
-                <button class="submit-btn btn" onclick="submitWords()">Submit Words</button>
               </div>
-          </main>
+        </main>
         <footer>
             &copy; 2024 Brainbooost AI all rights reserved
         </footer>
