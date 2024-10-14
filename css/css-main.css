@@ -557,3 +557,88 @@ h2 {
     width: 100%; /* Buttons take full width on smaller screens */
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.lists-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 50px;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* Each Card */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Card Heading */
+.card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Word Count */
+.card p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Card Buttons */
+.card-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit-button {
+    background-color: #d2e6ef;
+    color: #333;
+}
+
+.games-button {
+    background-color: #437ca7;
+    color: white;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 400px;
+    }
+}
