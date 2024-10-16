@@ -17,28 +17,34 @@
             <a href="#about">My Lists</a>
             <button class="login-btn">Login</button>
         </nav>
+        <!-- Hamburger icon -->
+        <div class="hamburger-menu" id="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     </header>
       <body>
         <main>
             <div class="container">
-                <!-- Manually Input Words Form Section -->
-                <div class="form-container">
-                <h3>Create Word List</h3>
+                <!-- Input Words Form Section -->
+                <form id="listForm">
+                    <h3>Create Word List</h3>
 
-                <!-- Name of the list input -->
-                <div class="input-group">
-                    <input type="text" placeholder="Name of List" id="listName" class="input-text">
-                </div>
+                    <!-- Name of the list input -->
+                    <div class="input-group">
+                        <input type="text" placeholder="Name of List" id="listName" class="input-text">
+                    </div>
 
-                <!-- Number of words input with plus and minus buttons -->
-                <div class="input-group">
-                    <label for="wordCount" class="input-label">Number of words</label>
-                    <input type="number" value="1" min="1" class="input-number" id="wordCount">
-                </div>
+                    <!-- Number of words input with plus and minus buttons -->
+                    <div class="input-group" id="word-container">
+                        <label for="wordCount" class="input-label">Number of words</label>
+                        <input type="number" value="1" min="1" class="input-number" id="wordCount">
+                    </div>
 
-                <!-- Submit button -->
-                <button class="btn submit-btn" type="submit">Create</button>
-                </div>
+                    <!-- Submit button -->
+                    <button class="btn submit-btn" type="submit">Create</button>
+                </form>
             </div>
         </main>
         <footer>
