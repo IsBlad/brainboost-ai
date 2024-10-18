@@ -1,5 +1,6 @@
 from openai import OpenAI
 import toml
+import json
 
 class OpenAIClient:
     def __init__(self, config_path="config/api_key.toml"):
@@ -98,8 +99,19 @@ class OpenAIClient:
             }
         )
 
-        return response
+        # Extract the content from the response
+        content = response.choices[0].message.content
+        
+        # Parse the JSON content
+        parsed_content = json.loads(content)
+        
+        # Extract the words list from the parsed content
+        words_list = parsed_content.get('words', [])
+        
+        return words_list
 
 test_list = ["River", "Lake"]
 client = OpenAIClient()
 print(client.generate_definitions(test_list))
+
+# Save dictionary to CSV file
