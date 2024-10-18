@@ -1,6 +1,7 @@
 from openai import OpenAI
 import toml
 import json
+from config.settings import CEFR_LEVEL
 
 class OpenAIClient:
     def __init__(self, config_path="config/api_key.toml"):
@@ -10,13 +11,16 @@ class OpenAIClient:
         self.client = OpenAI(api_key=self.openai_api_key)
 
     def generate_definitions(self, words):
+        '''Generate definitions and example sentences for words provided. 
+        Returns a dictionary with three keys: word, definition, example_sentence'''
+
         if not words:
             raise ValueError("No words provided")
 
         # Define the prompt message content
         system_message = {
             "role": "system",
-            "content": """
+            "content": f"""
             Generate a JSON object for each word that includes its definition and an example sentence.
             The definitions and example sentences should be simple and easy to understand.
 
@@ -26,7 +30,7 @@ class OpenAIClient:
             - Write a clear and basic definition that is easy for learners to understand.
             - Provide an example sentence that uses the word naturally in context.
             3. Ensure both the definition and the example sentence are easy to understand. 
-            The language should be suitable for CEFR B1 learners.
+            The language should be suitable for CEFR {CEFR_LEVEL} learners.
 
             # Output Format
             The output should be a JSON array, where each element contains the following structure:
@@ -34,7 +38,6 @@ class OpenAIClient:
             - `definition`: A simple, easy-to-understand definition.
             - `example_sentence`: An example sentence that uses the word in a clear, everyday context.
 
-            # TODO: Fix JSON formatting to remove \n and whitespace
             Example JSON structure:
             ```json
             [
@@ -74,7 +77,7 @@ class OpenAIClient:
 
             # Notes
             - Make sure both the definitions and example sentences are written in simple language.
-            - Keep the language clear and appropriate for CEFR B1 learners.
+            - Keep the language clear and appropriate for CEFR {CEFR_LEVEL} learners.
             - The example sentences should show the word being used in natural, everyday contexts.
             """
         }
@@ -109,9 +112,3 @@ class OpenAIClient:
         words_list = parsed_content.get('words', [])
         
         return words_list
-
-test_list = ["River", "Lake"]
-client = OpenAIClient()
-print(client.generate_definitions(test_list))
-
-# Save dictionary to CSV file
