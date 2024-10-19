@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brainboost AI - Create List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="static/css/css-main.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="global-header" id="top-nav">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/Brainboost Logo.jpg') }}" alt="Website Logo">
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Start</a>
+            <a href="{{ url_for('lists') }}">My Lists</a>
+            <button class="login-btn">Login</button>
+        </nav>
+        <!-- Hamburger icon -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Input Words Form Section -->
+            <form id="listForm" novalidate>
+                <h3>Create Word List</h3>
+                <!-- Name of the list input -->
+                <div class="input-group">
+                    <label for="listName" class="input-label"></label>
+                    <input type="text" placeholder="Enter List Name Here" id="listName" class="input-text" required>
+                    <div class="error" id="listNameError"></div>
+                </div>
+
+                <!-- Number of words input -->
+                <div class="input-group">
+                    <label for="wordCount" class="input-label">Number of words</label>
+                    <input type="number" value="1" min="1" id="wordCount" class="input-number" required>
+                    <div class="error" id="wordCountError"></div>
+                </div>
+
+                <!-- Submit button -->
+                <button class="btn submit-btn" type="submit">Create</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2024 Brainboost AI all rights reserved
+    </footer>
+
+    <!-- JavaScript for Form Handling -->
+    <script src="static/js/listcreate.js"></script>
+</body>
+</html>
