@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const input = document.createElement('input');
         input.type = 'text';
         input.id = `word${index}`;
-        input.name = `word${index}`;
+        input.name = `word`;
         input.required = true;
         input.placeholder = `Enter word ${index}`;
 
@@ -88,9 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for form submission
     wordForm.addEventListener('submit', function(event) {
-        console.log('Form submitted');
-        // Uncomment the next line to prevent the form from actually submitting
+
         // event.preventDefault(); // Prevent default form submission
+        console.log('Form submitted');
 
         if (validateWords()) {
             // Collect the words
@@ -103,8 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // Send words to API and navigate to worddefinition.html
-            getDefinitions(words);
         }
     });
 
