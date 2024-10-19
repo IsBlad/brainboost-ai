@@ -1,10 +1,10 @@
 from openai import OpenAI
 import toml
 import json
-from instance.settings import CEFR_LEVEL
+from config.settings import CEFR_LEVEL
 
 class OpenAIClient:
-    def __init__(self, config_path="instance/api_key.toml"):
+    def __init__(self, config_path="config/api_key.toml"):
         # Load API key from config file and initialise OpenAI client
         self.secrets = toml.load(config_path)
         self.openai_api_key = self.secrets.get("OPENAI_API_KEY")

@@ -8,7 +8,7 @@ app = Flask(__name__)
 # Load configuration from settings.py
 app.config.from_object(settings)
 
-# Initialize OpenAIClient
+# Initialise OpenAIClient
 openai_client = OpenAIClient()
 
 # Route for the homepage
@@ -20,19 +20,20 @@ def index():
 @app.route('/addwords', methods=['GET', 'POST'])
 def add_words():
     if request.method == 'POST':
-        # Get all words from the form
+        
+        # Get words from the form
         words = request.form.getlist('word')
         
         if words:
             try:
-                # Generate definitions using OpenAIClient
+                # Generate definitions using OpenAIClient and pass them to the template
                 definitions = openai_client.generate_definitions(words)
-                
-                # Pass the definitions to the template
                 return render_template('vocabularylist/reviewdefinitions.html', definitions=definitions)
+            
             except Exception as e:
-                # Handle any errors
+
                 return render_template('vocabularylist/addwords.html', error=str(e))
+        
         else:
             return render_template('vocabularylist/addwords.html', error="No words were provided.")
     
