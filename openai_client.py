@@ -1,7 +1,7 @@
 from openai import OpenAI
 import toml
 import json
-from config.settings import CEFR_LEVEL
+from instance.settings import CEFR_LEVEL
 
 class OpenAIClient:
     def __init__(self, config_path="instance/api_key.toml"):
