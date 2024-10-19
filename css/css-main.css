@@ -63,7 +63,6 @@ nav a:hover {
     color: #165497;
 }
 
-
 /* Login Button Styling */
 .login-btn {
     padding: 6px 22px;
@@ -110,16 +109,26 @@ nav a:hover {
         display: flex; /* Display the navigation links when active */
         flex-direction: column;
         position: absolute;
-        top: 100px;
-        right: 20px;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        top: 75px;
+        right: 1px;
         background-color: #fff;
-        padding: 20px;
-        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-        z-index: 10;
+        padding: 50px;
+        z-index: 1;
     }
 
     nav a {
         margin: 10px 0; /* Adjust margin for vertical layout */
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .login-btn {
+        margin: 10px 0;
+        text-align: center;
+        font-size: 1.2rem;
     }
 }
 
@@ -212,6 +221,51 @@ footer {
     color: #333;
 }
 
+/* Modal window */
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  .label {
+
+  }
+  
+  /* Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+/* Addwords as well? */
 .list {
     width: 600px; 
     margin: 50px auto;
@@ -426,19 +480,7 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
 /* Worddefinitions*/
-
-  
-  
   .container {
     max-width: 700px;
     width: 100%;
@@ -448,7 +490,6 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Definition Box Styling */
   .definition-box {
     background-color: #fff;
     padding: 15px;
@@ -475,7 +516,6 @@ footer {
     display: flex;
     gap: 10px;
   }
-
   
   .btn.regenerate {
     background-color: #437ca7;
@@ -588,8 +628,6 @@ footer {
 
 
 /*Addwords*/
-
-
 .list {
     max-width: 700px;
     width: 100%;
@@ -696,10 +734,6 @@ h2 {
 
 
 /* Lists*/
-
-
-
-
 .lists-container {
     max-width: 1200px;
     margin: 20px auto;
