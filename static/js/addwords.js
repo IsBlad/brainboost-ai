@@ -88,7 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for form submission
     wordForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+        console.log('Form submitted');
+        // Uncomment the next line to prevent the form from actually submitting
+        // event.preventDefault(); // Prevent default form submission
 
         if (validateWords()) {
             // Collect the words
