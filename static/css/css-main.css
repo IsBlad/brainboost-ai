@@ -146,7 +146,7 @@ nav a:hover {
     position: relative;
     height: 100vh;
     background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9)), /* White overlay with 50% transparency */
-    url('/Users/isabellerandeblad/GA/Final-Project/img/background.png') no-repeat center center/cover; /* Full-page background */
+    url('/static/img/background.png') no-repeat center center/cover; /* Full-page background */
     display: flex;
     justify-content: center; /* Align the text window to the right */
     align-items: center;
