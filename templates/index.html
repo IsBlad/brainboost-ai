@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Brainboost AI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ url_for('static', filename='css/css-main.css') }}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    </head>
+    <header class="global-header" id="top-nav">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/Brainboost Logo.jpg') }}" alt="Website Logo">
+        </div>
+        <nav>
+            <a href="{{ url_for('static', filename='lists.html') }}">My Lists</a>
+            <button class="login-btn btn">Login</button>
+        </nav>
+        <!-- Hamburger icon -->
+        <div class="hamburger-menu" id="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    </header>
+      <body>
+        <main class="start-page">
+            <div class="image-container">
+                <div class="text-window">
+                    <h1 class="start-heading">Generate your first list now!</h1>
+                    <p>Take the wordlist for the week or ask the AI for a list of words and press generate to create a list with descriptions and example sentences.</p>
+                    <button class="gen-btn btn">
+                        <a href="{{ url_for('static', filename='listcreate.html') }}">Generate Now</a>
+                    </button>
+                </div>
+            </div>
+            <footer>
+                &copy; 2024 Brainbooost AI all rights reserved
+            </footer>
+        </main>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+      </body>
+</html>
