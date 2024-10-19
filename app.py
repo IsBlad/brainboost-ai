@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from config import settings
+from instance import settings
 from openai_client import OpenAIClient
 
 # Initialise the Flask app
@@ -33,6 +33,11 @@ def list_create():
         
         pass
     return render_template('listcreate.html')
+
+# Route to view all Vocabulary Lists
+@app.route('/lists')
+def lists():
+    return render_template('lists.html')
 
 # Route for starting a game
 @app.route('/gamestart')
