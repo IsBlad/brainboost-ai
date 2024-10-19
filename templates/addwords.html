@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Brainboost AI - Add Words</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/css-main.css" rel="stylesheet">
+    <link href="static/css/css-main.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
@@ -12,11 +12,11 @@
 <body>
     <header class="global-header" id="top-nav">
         <div class="logo">
-            <img src="img/Brainboost Logo.jpg" alt="Website Logo">
+            <img src="{{ url_for('static', filename='img/Brainboost Logo.jpg') }}" alt="Website Logo">
         </div>
         <nav>
-            <a href="index.html">Start</a>
-            <a href="lists.html">My Lists</a>
+            <a href="{{ url_for('index') }}">Start</a>
+            <a href="{{ url_for('lists') }}">My Lists</a>
             <button class="login-btn btn">Login</button>
         </nav>
         <!-- Hamburger icon -->
@@ -52,6 +52,6 @@
     <footer>
         &copy; 2024 Brainboost AI all rights reserved
     </footer>
-    <script src="js/addwords.js"></script>
+    <script src="static/js/addwords.js"></script>
 </body>
 </html>
