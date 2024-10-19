@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const encodedWordCount = encodeURIComponent(wordCount);
 
             // Redirect to the next page with query parameters
-            window.location.href = `addwords.html?list=${encodedListName}&count=${encodedWordCount}`;
+            window.location.href = `/addwords?list=${encodedListName}&count=${encodedWordCount}`;
         }
     });
 
