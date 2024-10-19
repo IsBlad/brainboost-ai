@@ -20,23 +20,19 @@ def index():
 @app.route('/addwords', methods=['GET', 'POST'])
 def add_words():
     if request.method == 'POST':
-        
-        # Get words from the form
         words = request.form.getlist('word')
+        print(words)
+        definitions = openai_client.generate_definitions(words)
+        print(definitions)
         
-        if words:
-            try:
-                # Generate definitions using OpenAIClient and pass them to the template
-                definitions = openai_client.generate_definitions(words)
-                return render_template('vocabularylist/reviewdefinitions.html', definitions=definitions)
-            
-            except Exception as e:
-
-                return render_template('vocabularylist/addwords.html', error=str(e))
-        
-        else:
-            return render_template('vocabularylist/addwords.html', error="No words were provided.")
-    
+        # if words:
+        #     try:
+        #         definitions = openai_client.generate_definitions(words)
+        #         return render_template('vocabularylist/reviewdefinitions.html', definitions=definitions)
+        #     except Exception as e:
+        #         return jsonify({'error': str(e)}), 400
+        # else:
+        #     return jsonify({'error': "No words were provided."}), 400
     # If it's a GET request, just render the form
     return render_template('vocabularylist/addwords.html')
 
