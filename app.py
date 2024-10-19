@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from instance import settings
 from openai_client import OpenAIClient
 
@@ -7,6 +7,9 @@ app = Flask(__name__)
 
 # Load configuration from settings.py
 app.config.from_object(settings)
+
+# Initialize OpenAIClient
+openai_client = OpenAIClient()
 
 # Route for the homepage
 @app.route('/')
@@ -17,12 +20,24 @@ def index():
 @app.route('/addwords', methods=['GET', 'POST'])
 def add_words():
     if request.method == 'POST':
-        word = request.form['word']
+        # Get all words from the form
+        words = request.form.getlist('word')
         
-        #TODO: Logic to handle adding words
-        
-        return render_template('addwords.html', success=True)
-    return render_template('addwords.html')
+        if words:
+            try:
+                # Generate definitions using OpenAIClient
+                definitions = openai_client.generate_definitions(words)
+                
+                # Pass the definitions to the template
+                return render_template('vocabularylist/reviewdefinitions.html', definitions=definitions)
+            except Exception as e:
+                # Handle any errors
+                return render_template('vocabularylist/addwords.html', error=str(e))
+        else:
+            return render_template('vocabularylist/addwords.html', error="No words were provided.")
+    
+    # If it's a GET request, just render the form
+    return render_template('vocabularylist/addwords.html')
 
 # Route for creating Vocabulary Lists
 @app.route('/listcreate', methods=['GET', 'POST'])
@@ -32,17 +47,17 @@ def list_create():
         #TODO: Logic for handling list creation
         
         pass
-    return render_template('listcreate.html')
+    return render_template('vocabularylist/listcreate.html')
 
 # Route to view all Vocabulary Lists
 @app.route('/lists')
 def lists():
-    return render_template('lists.html')
+    return render_template('vocabularylist/lists.html')
 
 # Route for starting a game
 @app.route('/gamestart')
 def game_start():
-    return render_template('gamestart.html')
+    return render_template('wordsup/gamestart.html')
 
 # Run the application
 if __name__ == '__main__':
