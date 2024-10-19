@@ -1,325 +1,197 @@
-// js/worddefinition.js
+document.addEventListener('DOMContentLoaded', () => {
+    // Event listeners for Save and Cancel buttons
+    document.querySelector('.btn.save').addEventListener('click', saveWordList);
+    document.querySelector('.btn.cancel').addEventListener('click', cancelWordList);
 
-// Wait for the DOM to fully load
-document.addEventListener('DOMContentLoaded', function() {
-    const definitionsContainer = document.getElementById('definitions-container');
-    const listNameElement = document.getElementById('listName');
-    const saveBtn = document.querySelector('.btn.save');
-    const cancelBtn = document.querySelector('.btn.cancel');
+    // Fetch and display word definitions
+    fetchWordDefinitions();
+});
 
-    // Retrieve the word definitions from sessionStorage
-    const wordDefinitions = JSON.parse(sessionStorage.getItem('wordDefinitions'));
+function fetchWordDefinitions() {
+    const wordListDiv = document.getElementById('word-list');
+    wordListDiv.innerHTML = '<div class="loading">Loading word definitions...</div>';
 
-    // Log the word definitions to the console for debugging
-    console.log('Word Definitions:', wordDefinitions); // <-- Debugging line
-
-    // Check if there are definitions to display
-    if (wordDefinitions && Array.isArray(wordDefinitions) && wordDefinitions.length > 0) {
-        wordDefinitions.forEach(wordDef => {
-            // Check if the object contains the expected properties
-            if (wordDef.word && wordDef.definition && Array.isArray(wordDef.examples)) {
-                // Create a container for each word's definition
-                const wordElement = document.createElement('div');
-                wordElement.classList.add('definition-box');
-
-                // Word Header
-                const wordHeader = document.createElement('div');
-                wordHeader.classList.add('word-header');
-
-                const wordTitle = document.createElement('h3');
-                wordTitle.textContent = wordDef.word;
-                wordHeader.appendChild(wordTitle);
-
-                const buttonsDiv = document.createElement('div');
-                buttonsDiv.classList.add('buttons');
-
-                const regenerateBtn = document.createElement('button');
-                regenerateBtn.classList.add('btn', 'regenerate');
-                regenerateBtn.textContent = 'Regenerate';
-
-                const editBtn = document.createElement('button');
-                editBtn.classList.add('btn', 'edit');
-                editBtn.textContent = 'Edit';
-
-                buttonsDiv.appendChild(regenerateBtn);
-                buttonsDiv.appendChild(editBtn);
-
-                wordHeader.appendChild(buttonsDiv);
-
-                // Definition Fieldset
-                const defFieldset = document.createElement('fieldset');
-                defFieldset.classList.add('def-box');
-                defFieldset.setAttribute('role', 'presentation');
-
-                const defLegend = document.createElement('legend');
-                defLegend.textContent = 'Definition';
-
-                const defParagraph = document.createElement('p');
-                defParagraph.classList.add('definition');
-                defParagraph.textContent = wordDef.definition;
-
-                defFieldset.appendChild(defLegend);
-                defFieldset.appendChild(defParagraph);
-
-                // Example Fieldset
-                const exFieldset = document.createElement('fieldset');
-                exFieldset.classList.add('example-box');
-                exFieldset.setAttribute('role', 'presentation');
-
-                const exLegend = document.createElement('legend');
-                exLegend.textContent = 'Example';
-
-                exFieldset.appendChild(exLegend);
-
-                wordDef.examples.forEach(example => {
-                    const exParagraph = document.createElement('p');
-                    exParagraph.classList.add('example');
-                    exParagraph.textContent = example;
-                    exFieldset.appendChild(exParagraph);
-                });
-
-                // Assemble the definition box
-                wordElement.appendChild(wordHeader);
-                wordElement.appendChild(defFieldset);
-                wordElement.appendChild(exFieldset);
-
-                // Append the word definition block to the main container
-                definitionsContainer.appendChild(wordElement);
-            } else {
-                console.error("Missing expected properties in API response:", wordDef);
+    fetch('/api/word-definitions')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+            return response.json();
+        })
+        .then(data => {
+            populateWordList(data);
+        })
+        .catch(error => {
+            console.error('Error fetching word definitions:', error);
+            displayError('Failed to load word definitions.');
         });
-    } else {
-        // If no definitions were found, display a message
-        const noDefinitionsMessage = document.createElement('p');
-        noDefinitionsMessage.textContent = 'No word definitions found.';
-        noDefinitionsMessage.style.textAlign = 'center';
-        noDefinitionsMessage.style.fontSize = '1.2rem';
-        noDefinitionsMessage.style.color = '#333';
-        definitionsContainer.appendChild(noDefinitionsMessage);
+}
+
+function populateWordList(data) {
+    const wordListDiv = document.getElementById('word-list');
+    wordListDiv.innerHTML = ''; // Clear loading or error messages
+
+    for (const [word, details] of Object.entries(data)) {
+        const wordBox = createWordBox(word, details);
+        wordListDiv.appendChild(wordBox);
     }
+}
 
-    // Handle Save and Cancel Buttons (Optional)
-    saveBtn.addEventListener('click', function() {
-        alert('Definitions saved successfully!');
-        // Implement saving functionality as needed (e.g., send to server or save locally)
+function createWordBox(word, details) {
+    // Create the main container
+    const definitionBox = document.createElement('div');
+    definitionBox.classList.add('definition-box');
+
+    // Word Header
+    const wordHeader = document.createElement('div');
+    wordHeader.classList.add('word-header');
+
+    const wordTitle = document.createElement('h3');
+    wordTitle.textContent = word;
+
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.classList.add('buttons');
+
+    const regenerateBtn = document.createElement('button');
+    regenerateBtn.classList.add('btn', 'regenerate');
+    regenerateBtn.textContent = 'Regenerate';
+    regenerateBtn.addEventListener('click', () => regenerateDefinition(word));
+
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('btn', 'edit');
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', () => editWord(word, definitionBox));
+
+    buttonsDiv.appendChild(regenerateBtn);
+    buttonsDiv.appendChild(editBtn);
+
+    wordHeader.appendChild(wordTitle);
+    wordHeader.appendChild(buttonsDiv);
+
+    // Definition Fieldset
+    const defBox = document.createElement('fieldset');
+    defBox.classList.add('def-box');
+    defBox.setAttribute('role', 'presentation');
+
+    const defLegend = document.createElement('legend');
+    defLegend.textContent = 'Definition';
+    defBox.appendChild(defLegend);
+
+    const defParagraph = document.createElement('p');
+    defParagraph.classList.add('definition');
+    defParagraph.textContent = details.definition;
+    defBox.appendChild(defParagraph);
+
+    // Example Fieldset
+    const exampleBox = document.createElement('fieldset');
+    exampleBox.classList.add('example-box');
+    exampleBox.setAttribute('role', 'presentation');
+
+    const exampleLegend = document.createElement('legend');
+    exampleLegend.textContent = 'Example';
+    exampleBox.appendChild(exampleLegend);
+
+    details.examples.forEach(exampleText => {
+        const exampleParagraph = document.createElement('p');
+        exampleParagraph.classList.add('example');
+        exampleParagraph.textContent = exampleText;
+        exampleBox.appendChild(exampleParagraph);
     });
 
-    cancelBtn.addEventListener('click', function() {
-        window.location.href = 'addwords.html'; // Redirect back to the Add Words page
-    });
+    // Assemble the definition box
+    definitionBox.appendChild(wordHeader);
+    definitionBox.appendChild(defBox);
+    definitionBox.appendChild(exampleBox);
 
-    // Event listener for "Regenerate" and "Edit" buttons
-    definitionsContainer.addEventListener('click', async function(event) {
-        if (event.target.classList.contains('regenerate')) {
-            const definitionBox = event.target.closest('.definition-box');
-            const word = definitionBox.querySelector('h3').textContent;
+    return definitionBox;
+}
 
-            // Fetch new data for the word
-            const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`No definition found for "${word}".`);
-                }
-                const wordData = await response.json();
+function displayError(message) {
+    const wordListDiv = document.getElementById('word-list');
+    wordListDiv.innerHTML = `<p class="error">${message}</p>`;
+}
 
-                // Process the fetched data
-                const firstEntry = wordData[0];
-                const meanings = firstEntry.meanings;
+function regenerateDefinition(word) {
+    // Implement regeneration logic here
+    alert(`Regenerate definition for "${word}"`);
+}
 
-                if (Array.isArray(meanings) && meanings.length > 0) {
-                    const firstMeaning = meanings[0];
-                    const definitions = firstMeaning.definitions;
+function editWord(word, definitionBox) {
+    // Toggle between view and edit mode
+    const isEditing = definitionBox.classList.contains('editing');
 
-                    if (Array.isArray(definitions) && definitions.length > 0) {
-                        const firstDefinition = definitions[0].definition;
-                        const example = definitions[0].example || 'No examples available.';
-                        const examplesArray = [];
+    if (isEditing) {
+        // Save the edited content
+        const newDefinition = definitionBox.querySelector('.definition').textContent;
+        const newExamples = Array.from(definitionBox.querySelectorAll('.example')).map(p => p.textContent);
 
-                        if (definitions[0].example) {
-                            examplesArray.push(definitions[0].example);
-                        } else {
-                            examplesArray.push('No examples available.');
-                        }
+        // TODO: Send updated data to the back-end via API
 
-                        // Update the definition and examples in the DOM
-                        const defParagraph = definitionBox.querySelector('.definition');
-                        defParagraph.textContent = firstDefinition;
+        // Update the UI
+        definitionBox.querySelector('.definition').textContent = newDefinition;
+        // For examples, you might want to re-render them or allow editing similarly
 
-                        const exFieldset = definitionBox.querySelector('.example-box');
-                        exFieldset.innerHTML = ''; // Clear existing examples
+        // Remove editing state
+        definitionBox.classList.remove('editing');
+        event.target.textContent = 'Edit';
+    } else {
+        // Enter edit mode
+        definitionBox.classList.add('editing');
+        event.target.textContent = 'Save';
 
-                        const exLegend = document.createElement('legend');
-                        exLegend.textContent = 'Example';
-                        exFieldset.appendChild(exLegend);
-
-                        examplesArray.forEach(example => {
-                            const exParagraph = document.createElement('p');
-                            exParagraph.classList.add('example');
-                            exParagraph.textContent = example;
-                            exFieldset.appendChild(exParagraph);
-                        });
-
-                        // Update the stored definitions in sessionStorage
-                        const storedDefinitions = JSON.parse(sessionStorage.getItem('wordDefinitions'));
-                        const wordIndex = storedDefinitions.findIndex(def => def.word.toLowerCase() === word.toLowerCase());
-                        if (wordIndex !== -1) {
-                            storedDefinitions[wordIndex].definition = firstDefinition;
-                            storedDefinitions[wordIndex].examples = examplesArray;
-                            sessionStorage.setItem('wordDefinitions', JSON.stringify(storedDefinitions));
-                        }
-
-                    } else {
-                        // No definitions found
-                        updateDefinitionBox(definitionBox, 'Definition not found.', ['No examples available.']);
-                    }
-                } else {
-                    // No meanings found
-                    updateDefinitionBox(definitionBox, 'Definition not found.', ['No examples available.']);
-                }
-
-            } catch (error) {
-                console.error(error);
-                alert(`There was an error fetching the definition for "${word}".`);
-            }
-        }
-
-        if (event.target.classList.contains('edit')) {
-            const definitionBox = event.target.closest('.definition-box');
-            const wordTitle = definitionBox.querySelector('h3');
-            const currentWord = wordTitle.textContent;
-
-            // Replace the word title with an input field for editing
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = currentWord;
-            input.id = `edit-word-${currentWord}`;
-            input.style.fontSize = '1.5rem';
-            input.style.width = '70%';
-            wordTitle.replaceWith(input);
-            input.focus();
-
-            // Change Edit button to Save
-            event.target.textContent = 'Save';
-            event.target.classList.remove('edit');
-            event.target.classList.add('save');
-
-            // Handle Save button click
-            event.target.addEventListener('click', async function() {
-                const newWord = input.value.trim();
-                if (newWord === '') {
-                    alert('Word cannot be empty.');
-                    return;
-                }
-
-                // Fetch new data for the updated word
-                const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${newWord}`;
-                try {
-                    const response = await fetch(apiUrl);
-                    if (!response.ok) {
-                        throw new Error(`No definition found for "${newWord}".`);
-                    }
-                    const wordData = await response.json();
-
-                    // Process the fetched data
-                    const firstEntry = wordData[0];
-                    const meanings = firstEntry.meanings;
-
-                    if (Array.isArray(meanings) && meanings.length > 0) {
-                        const firstMeaning = meanings[0];
-                        const definitions = firstMeaning.definitions;
-
-                        if (Array.isArray(definitions) && definitions.length > 0) {
-                            const firstDefinition = definitions[0].definition;
-                            const example = definitions[0].example || 'No examples available.';
-                            const examplesArray = [];
-
-                            if (definitions[0].example) {
-                                examplesArray.push(definitions[0].example);
-                            } else {
-                                examplesArray.push('No examples available.');
-                            }
-
-                            // Update the word title in the DOM
-                            const newH3 = document.createElement('h3');
-                            newH3.textContent = newWord;
-                            input.replaceWith(newH3);
-
-                            // Update the definition and examples in the DOM
-                            const defParagraph = definitionBox.querySelector('.definition');
-                            defParagraph.textContent = firstDefinition;
-
-                            const exFieldset = definitionBox.querySelector('.example-box');
-                            exFieldset.innerHTML = ''; // Clear existing examples
-
-                            const exLegend = document.createElement('legend');
-                            exLegend.textContent = 'Example';
-                            exFieldset.appendChild(exLegend);
-
-                            examplesArray.forEach(example => {
-                                const exParagraph = document.createElement('p');
-                                exParagraph.classList.add('example');
-                                exParagraph.textContent = example;
-                                exFieldset.appendChild(exParagraph);
-                            });
-
-                            // Update the stored definitions in sessionStorage
-                            const storedDefinitions = JSON.parse(sessionStorage.getItem('wordDefinitions'));
-                            const wordIndex = storedDefinitions.findIndex(def => def.word.toLowerCase() === currentWord.toLowerCase());
-                            if (wordIndex !== -1) {
-                                storedDefinitions[wordIndex].word = newWord;
-                                storedDefinitions[wordIndex].definition = firstDefinition;
-                                storedDefinitions[wordIndex].examples = examplesArray;
-                                sessionStorage.setItem('wordDefinitions', JSON.stringify(storedDefinitions));
-                            }
-
-                            // Change Save button back to Edit
-                            event.target.textContent = 'Edit';
-                            event.target.classList.remove('save');
-                            event.target.classList.add('edit');
-
-                        } else {
-                            // No definitions found
-                            updateDefinitionBox(definitionBox, 'Definition not found.', ['No examples available.']);
-                        }
-                    } else {
-                        // No meanings found
-                        updateDefinitionBox(definitionBox, 'Definition not found.', ['No examples available.']);
-                    }
-
-                } catch (error) {
-                    console.error(error);
-                    alert(`There was an error fetching the definition for "${newWord}".`);
-                }
-            }, { once: true }); // Ensure the event listener is added only once
-        }
-    });
-
-    /**
-     * Helper function to update the definition box with new data
-     * @param {HTMLElement} definitionBox - The container to update
-     * @param {string} definition - The new definition
-     * @param {Array} examples - The new examples array
-     */
-    function updateDefinitionBox(definitionBox, definition, examples) {
-        // Update the definition
+        // Replace definition paragraph with a textarea
         const defParagraph = definitionBox.querySelector('.definition');
-        defParagraph.textContent = definition;
+        const defTextarea = document.createElement('textarea');
+        defTextarea.value = defParagraph.textContent;
+        defTextarea.classList.add('definition-edit');
+        defParagraph.replaceWith(defTextarea);
 
-        // Update the examples
-        const exFieldset = definitionBox.querySelector('.example-box');
-        exFieldset.innerHTML = ''; // Clear existing examples
+        // Similarly, make examples editable if desired
+    }
+}
 
-        const exLegend = document.createElement('legend');
-        exLegend.textContent = 'Example';
-        exFieldset.appendChild(exLegend);
+function saveWordList() {
+    // Collect all word definitions and send to the back-end
+    const wordBoxes = document.querySelectorAll('.definition-box');
+    const wordData = {};
 
-        examples.forEach(example => {
-            const exParagraph = document.createElement('p');
-            exParagraph.classList.add('example');
-            exParagraph.textContent = example;
-            exFieldset.appendChild(exParagraph);
-        });
+    wordBoxes.forEach(box => {
+        const word = box.querySelector('.word-header h3').textContent;
+        const definition = box.querySelector('.def-box .definition').textContent;
+        const examples = Array.from(box.querySelectorAll('.example')).map(p => p.textContent);
+
+        wordData[word] = {
+            definition: definition,
+            examples: examples
+        };
+    });
+
+    // Send data to the back-end
+    fetch('/api/save-word-definitions', { // Update endpoint as needed
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(wordData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Save failed with status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Word definitions saved successfully!');
+    })
+    .catch(error => {
+        console.error('Error saving word definitions:', error);
+        alert('Failed to save word definitions.');
+    });
+}
+
+function cancelWordList() {
+    // Implement cancel logic, e.g., redirecting to another page or reverting changes
+    if (confirm('Are you sure you want to cancel? Unsaved changes will be lost.')) {
+        window.location.href = 'lists.html'; // Update the URL as needed
     }
 }
