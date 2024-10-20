@@ -9,8 +9,9 @@ app = Flask(__name__)
 # Load configuration from settings.py
 app.config.from_object(settings)
 
-# Initialise OpenAIClient
+# Initialise OpenAIClient and CSVHandler
 openai_client = OpenAIClient()
+csv_handler = CSVHandler()
 
 # Route for the homepage
 @app.route('/')
@@ -23,20 +24,15 @@ def add_words():
     if request.method == 'POST':
         print("add_words POST request received")
         words = request.form.getlist('word')
-        # print(words)
-        # definitions = openai_client.generate_definitions(words)
-        # print(definitions)
         
         if words:
             try:
                 definitions = openai_client.generate_definitions(words)
                 print("app.py definitions generated")
-                print(type(definitions))
-                for definition in definitions:
-                    print(definition)
-                csv_handler = CSVHandler('definitions_example.csv')
-                csv_handler.write_csv(definitions)
-                return render_template('vocabularylist/worddefinition.html', definitions=definitions)
+                csv_handler.write_csv('testfromapppy1234', definitions)
+
+                word_list = csv_handler.read_csv('testfromapppy1234')
+                return render_template('vocabularylist/reviewdefinitions.html', word_list=word_list)
             except Exception as e:
                 return jsonify({'error': str(e)}), 400
         else:
@@ -63,6 +59,12 @@ def lists():
 @app.route('/worddefinition')
 def word_definition():
     return render_template('vocabularylist/worddefinition.html')
+
+# Route to view all Vocabulary Lists
+@app.route('/reviewdefinitions')
+def review_definitions():
+    return render_template('vocabularylist/reviewdefinitions.html')
+
 # Route for starting a game
 @app.route('/gamestart')
 def game_start():
