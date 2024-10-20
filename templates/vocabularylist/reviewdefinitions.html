@@ -14,6 +14,7 @@
             <img src="{{ url_for('static', filename='img/Brainboost Logo.jpg') }}" alt="Website Logo">
         </div>
         <nav>
+            <a href="{{ url_for('index') }}">Start</a>
             <a href="{{ url_for('lists') }}">My Lists</a>
             <button class="login-btn">Login</button>
         </nav>
@@ -120,9 +121,24 @@
                   <button class="btn cancel">Cancel</button>
                 </div>
               </div>
+              <!-- Login Modal -->
+            <div id="loginModal" class="modal">
+              <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Login</h2>
+              <form id="loginForm" method="post">
+                  <label for="username">Username:</label>
+                  <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
+                  <label for="password">Password:</label>
+                  <input type="password" placeholder="password" id="password" name="password" required><br>
+                  <button class="submit-btn btn" type="submit">Submit</button>
+              </form>
+              </div>
+          </div>
         </main>
         <footer>
             &copy; 2024 Brainbooost AI all rights reserved
         </footer>
+        <script src="static/js/script.js"></script>
       </body>
 </html>

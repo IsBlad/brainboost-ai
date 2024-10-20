@@ -242,7 +242,7 @@ footer {
 /* Modal Content Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* Center the modal */
+    margin: 10% auto; /* Center the modal */
     padding: 40px;
     border-radius: 10px;
     border: 1px solid #888;
