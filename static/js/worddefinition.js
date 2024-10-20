@@ -1,16 +1,16 @@
 // Wait for the DOM to fully load
 document.addEventListener('DOMContentLoaded', async function() {
-    const definitionsContainer = document.getElementById('definitions-container');
+    const definitionsContainer = document.getElementById('word-list'); // Use 'word-list' from your HTML
 
     // Load CSV data and parse it
-    const wordDefinitions = await fetchCSVData('path/to/words.csv');
+    const wordDefinitions = await fetchCSVData('definitions_example.csv'); // Adjust the path to your CSV
 
     // Check if there are definitions to display
     if (wordDefinitions && Array.isArray(wordDefinitions) && wordDefinitions.length > 0) {
         wordDefinitions.forEach(wordDef => {
             // Create a container for each word's definition
             const wordElement = document.createElement('div');
-            wordElement.classList.add('definition-box');
+            wordElement.classList.add('definition-box'); // You can add styles to this class in your CSS
 
             // Word Header
             const wordHeader = document.createElement('div');
