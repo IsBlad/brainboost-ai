@@ -4,17 +4,17 @@
         <meta charset="utf-8">
         <title>Brainboost AI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/css-main.css" rel="stylesheet">
+        <link href="static/css/css-main.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
     </head>
     <header class="global-header" id="top-nav">
         <div class="logo">
-            <img src="img/Brainboost Logo.jpg" alt="Website Logo">
+            <img src="{{ url_for('static', filename='img/Brainboost Logo.jpg') }}" alt="Website Logo">
         </div>
         <nav>
-            <a href="lists.html">My Lists</a>
+            <a href="{{ url_for('lists') }}">My Lists</a>
             <button class="login-btn">Login</button>
         </nav>
         <!-- Hamburger icon -->
@@ -27,7 +27,27 @@
       <body>
         <main class="start-page">
             <div class="container def">
-                <!-- First Word Box -->
+                <!-- Template Word Box -->
+                <div class="definition-box">
+                  <div class="word-header">
+                    <h3>{{ word_list[0]['word'] }}</h3>
+                    <div class="buttons">
+                      <button class="btn regenerate">Regenerate</button>
+                      <button class="btn edit">Edit</button>
+                    </div>
+                  </div>
+                  <fieldset class="def-box" role="presentation">
+                    <legend>Definition</legend>
+                    <p class="definition">
+                        {{ word_list[0]['definition'] }}
+                      </p>
+                  </fieldset>
+                  <fieldset class="example-box" role="presentation">
+                    <legend>Example</legend>
+                    <p class="example">{{ word_list[0]['example_sentence'] }}</p>
+                  </fieldset>
+                </div>
+                <!-- First Word Box
                 <div class="definition-box">
                   <div class="word-header">
                     <h3>Dog</h3>
@@ -50,8 +70,9 @@
                   </fieldset>
                 </div>
             
+            
                 <!-- Additional Word Boxes -->
-                <div class="definition-box">
+                <!-- <div class="definition-box">
                   <div class="word-header">
                     <h3>Cat</h3>
                     <div class="buttons">
@@ -70,10 +91,10 @@
                         <p class="example">My cat likes dozing in front of the fire.</p>
                         <p class="example">I usually feed the neighbour's cat while she's away.</p>
                     </fieldset>
-                </div>
+                </div> -->
             
                 <!-- Third Word Box -->
-                <div class="definition-box">
+                <!-- <div class="definition-box">
                   <div class="word-header">
                     <h3>Cow</h3>
                     <div class="buttons">
@@ -91,7 +112,7 @@
                     <legend>Example</legend>
                     <p class="example">Most of these ranchers own only a bull and about twenty cows.</p>
                   </fieldset>
-                </div>
+                </div> -->
             
                 <!-- Save and Cancel Buttons -->
                 <div class="actions">
@@ -103,6 +124,5 @@
         <footer>
             &copy; 2024 Brainbooost AI all rights reserved
         </footer>
-        <script src="js/script.js"></script>
       </body>
 </html>
