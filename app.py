@@ -21,16 +21,16 @@ def index():
 # Route for adding words to a new Vocabulary List
 @app.route('/addwords', methods=['GET', 'POST'])
 def add_words():
-    list_name = request.args.get('list', default='Untitled', type=str)
-    print(list_name)
+    list_name = request.args.get('list', '')
+    # print(list_name)
+    count = request.args.get('count', 1, type=int)
+
     if request.method == 'POST':
-        print("add_words POST request received")
         words = request.form.getlist('word')
         
         if words:
             try:
                 definitions = openai_client.generate_definitions(words)
-                print("app.py definitions generated")
                 csv_handler.write_csv(list_name, definitions)
                 
                 return render_template('vocabularylist/reviewdefinitions.html', word_list=csv_handler.read_csv(list_name))
@@ -38,17 +38,13 @@ def add_words():
                 return jsonify({'error': str(e)}), 400
         else:
             return jsonify({'error': "No words were provided."}), 400
+
     # If it's a GET request, just render the form
-    return render_template('vocabularylist/addwords.html')
+    return render_template('vocabularylist/addwords.html', list_name=list_name, count=count)
 
 # Route for creating Vocabulary Lists
 @app.route('/listcreate', methods=['GET', 'POST'])
 def list_create():
-    if request.method == 'POST':
-        
-        filename = request.form.get('filename')
-        print(filename)
-        
     return render_template('vocabularylist/listcreate.html')
 
 # Route to view all Vocabulary Lists
