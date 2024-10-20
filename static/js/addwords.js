@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to create a word input field
     function createWordInput(index) {
         const inputGroup = document.createElement('div');
-        inputGroup.classList.add('input-group');
+        inputGroup.classList.add('input-box');
 
         const label = document.createElement('label');
         label.setAttribute('for', `word${index}`);
