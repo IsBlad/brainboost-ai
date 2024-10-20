@@ -4,7 +4,7 @@ import json
 from config.settings import CEFR_LEVEL
 
 class OpenAIClient:
-    def __init__(self, config_path="config/api_key.toml"):
+    def __init__(self, config_path="instance/api_key.toml"):
         # Load API key from config file and initialise OpenAI client
         self.secrets = toml.load(config_path)
         self.openai_api_key = self.secrets.get("OPENAI_API_KEY")
@@ -39,41 +39,36 @@ class OpenAIClient:
             - `example_sentence`: An example sentence that uses the word in a clear, everyday context.
 
             Example JSON structure:
-            ```json
             [
-            {
+            {{
                 "word": "Create",
                 "definition": "To make something new.",
                 "example_sentence": "She likes to create stories in her free time."
-            },
-            ...
+            }}
             ]
-            ```
 
             # Examples
             **Input:** 
             ["Discovery", "Encourage", "Improve"]
 
             **Expected Output:** 
-            ```json
             [
-            {
+            {{
                 "word": "Discovery",
                 "definition": "Finding something for the first time.",
                 "example_sentence": "The discovery of the old ship made everyone excited."
-            },
-            {
+            }},
+            {{
                 "word": "Encourage",
                 "definition": "To give someone support or confidence to do something.",
                 "example_sentence": "My teacher always encourages me to try new things."
-            },
-            {
+            }},
+            {{
                 "word": "Improve",
                 "definition": "To make something better.",
                 "example_sentence": "She studied hard to improve her English speaking skills."
-            }
+            }}
             ]
-            ```
 
             # Notes
             - Make sure both the definitions and example sentences are written in simple language.
@@ -112,3 +107,7 @@ class OpenAIClient:
         words_list = parsed_content.get('words', [])
         
         return words_list
+    
+test_list = ["River", "Lake"]
+client = OpenAIClient()
+print(client.generate_definitions(test_list))
