@@ -1,7 +1,7 @@
 from openai import OpenAI
 import toml
 import json
-from config.settings import CEFR_LEVEL
+from config.settings import CEFR_LEVEL, SYSTEM_MESSAGE
 
 class OpenAIClient:
     def __init__(self, config_path="instance/api_key.toml"):
@@ -18,64 +18,7 @@ class OpenAIClient:
             raise ValueError("No words provided")
 
         # Define the prompt message content
-        system_message = {
-            "role": "system",
-            "content": f"""
-            Generate a JSON object for each word that includes its definition and an example sentence.
-            The definitions and example sentences should be simple and easy to understand.
-
-            # Steps
-            1. Receive a list of words as input.
-            2. For each word:
-            - Write a clear and basic definition that is easy for learners to understand.
-            - Provide an example sentence that uses the word naturally in context.
-            3. Ensure both the definition and the example sentence are easy to understand. 
-            The language should be suitable for CEFR {CEFR_LEVEL} learners.
-
-            # Output Format
-            The output should be a JSON array, where each element contains the following structure:
-            - `word`: The word from the input list.
-            - `definition`: A simple, easy-to-understand definition.
-            - `example_sentence`: An example sentence that uses the word in a clear, everyday context.
-
-            Example JSON structure:
-            [
-            {{
-                "word": "Create",
-                "definition": "To make something new.",
-                "example_sentence": "She likes to create stories in her free time."
-            }}
-            ]
-
-            # Examples
-            **Input:** 
-            ["Discovery", "Encourage", "Improve"]
-
-            **Expected Output:** 
-            [
-            {{
-                "word": "Discovery",
-                "definition": "Finding something for the first time.",
-                "example_sentence": "The discovery of the old ship made everyone excited."
-            }},
-            {{
-                "word": "Encourage",
-                "definition": "To give someone support or confidence to do something.",
-                "example_sentence": "My teacher always encourages me to try new things."
-            }},
-            {{
-                "word": "Improve",
-                "definition": "To make something better.",
-                "example_sentence": "She studied hard to improve her English speaking skills."
-            }}
-            ]
-
-            # Notes
-            - Make sure both the definitions and example sentences are written in simple language.
-            - Keep the language clear and appropriate for CEFR {CEFR_LEVEL} learners.
-            - The example sentences should show the word being used in natural, everyday contexts.
-            """
-        }
+        system_message = SYSTEM_MESSAGE
 
         # Define the user input message
         user_message = {
@@ -100,6 +43,7 @@ class OpenAIClient:
         # Extract the content from the response
         content = response.choices[0].message.content
         
+        print(f"Content: {content}")
         # Parse the JSON content
         parsed_content = json.loads(content)
         
@@ -108,6 +52,11 @@ class OpenAIClient:
         
         return words_list
     
-test_list = ["River", "Lake"]
+test_list = ["Banana", "Orange"]
 client = OpenAIClient()
-print(client.generate_definitions(test_list))
+try:
+    result = client.generate_definitions(test_list)
+    print("openai_client.py test_list:", test_list)
+    print("openai_client.py result:", result)
+except Exception as e:
+    print(f"An error occurred: {str(e)}")
