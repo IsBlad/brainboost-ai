@@ -34,7 +34,7 @@ example_list = [
 csv_handler = CSVHandler()
 csv_handler.write_csv('test2', example_list)
 print(csv_handler.count_csv_rows('test2'))
-print(csv_handler.read_csv('testfromapppy1234'))
+# print(csv_handler.read_csv('testfromapppy1234'))
 
 data = csv_handler.read_csv('testfromapppy')
 for row in data:
