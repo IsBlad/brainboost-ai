@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from instance import settings
 from openai_client import OpenAIClient
+from csv_handler import CSVHandler
 
 # Initialise the Flask app
 app = Flask(__name__)
@@ -33,6 +34,8 @@ def add_words():
                 print(type(definitions))
                 for definition in definitions:
                     print(definition)
+                csv_handler = CSVHandler('definitions_example.csv')
+                csv_handler.write_csv(definitions)
                 return render_template('vocabularylist/worddefinition.html', definitions=definitions)
             except Exception as e:
                 return jsonify({'error': str(e)}), 400
@@ -56,6 +59,10 @@ def list_create():
 def lists():
     return render_template('vocabularylist/lists.html')
 
+# Route to view all Vocabulary Lists
+@app.route('/worddefinition')
+def word_definition():
+    return render_template('vocabularylist/worddefinition.html')
 # Route for starting a game
 @app.route('/gamestart')
 def game_start():
