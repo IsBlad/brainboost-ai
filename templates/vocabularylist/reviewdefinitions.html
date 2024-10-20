@@ -28,7 +28,8 @@
       <body>
         <main class="start-page">
             <div class="container def">
-              
+              <!-- Header with List Name -->
+              <h2 id="listName">List Name Here</h2>
                  {% for word in word_list %}
                 <div class="definition-box">
                   <div class="word-header">
@@ -54,7 +55,9 @@
                 <!-- Save and Cancel Buttons -->
                 <div class="actions">
                   <button class="btn save">Save</button>
-                  <button class="btn cancel">Cancel</button>
+                  <button class="btn cancel">
+                    <a href="{{ url_for('add_words') }}">Cancel</a>
+                  </button>
                 </div>
               </div>
               <!-- Login Modal -->
