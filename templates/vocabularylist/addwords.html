@@ -1,71 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Brainboost AI - Add Words</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/static/css/css-main.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header class="global-header" id="top-nav">
-        <div class="logo">
-            <img src="/static/img/Brainboost Logo.jpg" alt="Website Logo">
-        </div>
-        <nav>
-            <a href="{{ url_for('index') }}">Start</a>
-            <a href="{{ url_for('lists') }}">My Lists</a>
-            <button id="login-btn" class="login-btn btn">Login</button>
-        </nav>
-        <!-- Hamburger icon -->
-        <div class="hamburger-menu" id="hamburger-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
-
-    <main>
-        <div class="list">
-            <!-- Header with List Name -->
-            <h2 id="listName">List Name Here</h2>
-            <!-- Form for Adding Words -->
-            <form action="{{ url_for('add_words', list=list_name, count=count) }}" method="POST" id="word-form">
-                <div id="word-input-group">
-                    <!-- Dynamically generated word input fields will appear here -->
-                </div>
-
-                <!-- Button to add more words dynamically -->
-                <button type="button" id="add-word-btn" class="btn add-word">+ Add Word</button>
-                
-                <!-- Submit button to generate definition -->
-                <div class="action">
-                    <input type="hidden" name="list" value="{{ list_name }}">
-                    <button type="submit" class="btn gen-def">Generate Definitions</button>
-                </div>
-            </form>
-        </div>
-        <!-- Login Modal -->
-        <div id="loginModal" class="modal">
-            <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Login</h2>
-            <form id="loginForm" method="post">
-                <label for="username">Username:</label>
-                <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
-                <label for="password">Password:</label>
-                <input type="password" placeholder="password" id="password" name="password" required><br>
-                <button class="btn" type="submit">Submit</button>
-            </form>
+    <head>
+        <meta charset="utf-8">
+        <title>Brainboost AI - Add Words</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/static/css/css-main.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header class="global-header" id="top-nav">
+            <div class="logo">
+                <img src="/static/img/Brainboost Logo.jpg" alt="Website Logo">
             </div>
-        </div>
-        <footer>
-            &copy; 2024 Brainboost AI all rights reserved
-        </footer>
-    </main>
-    <script src="static/js/script.js"></script>
-    <script src="static/js/addwords.js"></script>
-</body>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('lists') }}">My Lists</a>
+                <button id="login-btn" class="login-btn btn">Login</button>
+            </nav>
+            <!-- Hamburger icon -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
+        <main>
+            <div class="list">
+                <!-- Header with List Name -->
+                <h2 id="listName">List Name Here</h2>
+                <!-- Form for Adding Words -->
+                <form action="{{ url_for('add_words') }}" method="POST" id="word-form">
+                    <div id="word-input-group">
+                        <!-- Dynamically generated word input fields will appear here -->
+                    </div>
+                    <!-- Button to add more words dynamically -->
+                    <button type="button" id="add-word-btn" class="btn add-word">+ Add Word</button>
+                    <!-- Submit button to generate definition -->
+                    <div class="action">
+                        <button type="submit" class="btn gen-def">Generate Definitions</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Login Modal -->
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Login</h2>
+                <form id="loginForm" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
+                    <label for="password">Password:</label>
+                    <input type="password" placeholder="password" id="password" name="password" required><br>
+                    <button class="btn" type="submit">Submit</button>
+                </form>
+                </div>
+            </div>
+            <footer>
+                &copy; 2024 Brainboost AI all rights reserved
+            </footer>
+        </main>
+        <script src="static/js/script.js"></script>
+        <script src="static/js/addwords.js"></script>
+    </body>
 </html>
