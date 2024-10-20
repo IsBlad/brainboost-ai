@@ -21,6 +21,8 @@ def index():
 # Route for adding words to a new Vocabulary List
 @app.route('/addwords', methods=['GET', 'POST'])
 def add_words():
+    list_name = request.args.get('list', default='Untitled', type=str)
+    print(list_name)
     if request.method == 'POST':
         print("add_words POST request received")
         words = request.form.getlist('word')
@@ -29,10 +31,9 @@ def add_words():
             try:
                 definitions = openai_client.generate_definitions(words)
                 print("app.py definitions generated")
-                csv_handler.write_csv('testfromapppy1234', definitions)
-
-                word_list = csv_handler.read_csv('testfromapppy1234')
-                return render_template('vocabularylist/reviewdefinitions.html', word_list=word_list)
+                csv_handler.write_csv(list_name, definitions)
+                
+                return render_template('vocabularylist/reviewdefinitions.html', word_list=csv_handler.read_csv(list_name))
             except Exception as e:
                 return jsonify({'error': str(e)}), 400
         else:
@@ -45,9 +46,9 @@ def add_words():
 def list_create():
     if request.method == 'POST':
         
-        #TODO: Logic for handling list creation
+        filename = request.form.get('filename')
+        print(filename)
         
-        pass
     return render_template('vocabularylist/listcreate.html')
 
 # Route to view all Vocabulary Lists
@@ -73,10 +74,3 @@ def game_start():
 # Run the application
 if __name__ == '__main__':
     app.run(debug=True)
-
-# Testing: Generate definitions and example sentences using OpenAIClient class
-# test_list=["banana", "apple"]
-
-# client = OpenAIClient()
-# definitions = client.generate_definitions(test_list)
-# print(definitions)

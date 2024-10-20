@@ -1,0 +1,40 @@
+{
+    "name": "words_schema",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "words": {
+          "type": "array",
+          "description": "A collection of words with their definitions and example sentences.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "word": {
+                "type": "string",
+                "description": "The word itself."
+              },
+              "definition": {
+                "type": "string",
+                "description": "The meaning of the word."
+              },
+              "example_sentence": {
+                "type": "string",
+                "description": "An example of the word used in a sentence."
+              }
+            },
+            "required": [
+              "word",
+              "definition",
+              "example_sentence"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "words"
+      ],
+      "additionalProperties": false
+    },
+    "strict": true
+  }
