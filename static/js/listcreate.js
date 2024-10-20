@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Validate list name
         if (listNameInput.value.trim() === '') {
             listNameError.textContent = 'Please enter a name for the list.';
-            listNameInput.classList.add('input-error');
             isValid = false;
         }
 
@@ -37,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const wordCountValue = parseInt(wordCountInput.value, 10);
         if (isNaN(wordCountValue) || wordCountValue < 1) {
             wordCountError.textContent = 'Please enter a valid number of words (minimum 1).';
-            wordCountInput.classList.add('input-error');
             isValid = false;
         }
 
