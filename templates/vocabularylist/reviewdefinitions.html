@@ -27,10 +27,11 @@
       <body>
         <main class="start-page">
             <div class="container def">
-                <!-- Template Word Box -->
+              
+                 {% for word in word_list %}
                 <div class="definition-box">
                   <div class="word-header">
-                    <h3>{{ word_list[0]['word'] }}</h3>
+                    <h3>{{ word['word'] }}</h3>
                     <div class="buttons">
                       <button class="btn regenerate">Regenerate</button>
                       <button class="btn edit">Edit</button>
@@ -39,80 +40,15 @@
                   <fieldset class="def-box" role="presentation">
                     <legend>Definition</legend>
                     <p class="definition">
-                        {{ word_list[0]['definition'] }}
+                        {{ word['definition'] }}
                       </p>
                   </fieldset>
                   <fieldset class="example-box" role="presentation">
                     <legend>Example</legend>
-                    <p class="example">{{ word_list[0]['example_sentence'] }}</p>
+                    <p class="example">{{ word['example_sentence'] }}</p>
                   </fieldset>
                 </div>
-                <!-- First Word Box
-                <div class="definition-box">
-                  <div class="word-header">
-                    <h3>Dog</h3>
-                    <div class="buttons">
-                      <button class="btn regenerate">Regenerate</button>
-                      <button class="btn edit">Edit</button>
-                    </div>
-                  </div>
-                  <fieldset class="def-box" role="presentation">
-                    <legend>Definition</legend>
-                    <p class="definition">
-                        A common animal with four legs, especially kept by people as a pet or to hunt or guard things.
-                      </p>
-                  </fieldset>
-                  <fieldset class="example-box" role="presentation">
-                    <legend>Example</legend>
-                    <p class="example">I grabbed the dog by the collar and dragged it out of the room.</p>
-                    <p class="example">A dog lay under the table, gnawing on a bone.</p>
-                    <p class="example">Steve's gone out to walk the dogs.</p>
-                  </fieldset>
-                </div>
-            
-            
-                <!-- Additional Word Boxes -->
-                <!-- <div class="definition-box">
-                  <div class="word-header">
-                    <h3>Cat</h3>
-                    <div class="buttons">
-                      <button class="btn regenerate">Regenerate</button>
-                      <button class="btn edit">Edit</button>
-                    </div>
-                  </div>
-                    <fieldset class="def-box" role="presentation">
-                        <legend>Definition</legend>
-                        <p class="definition"></p>
-                        A small animal with fur, four legs, a tail, and claws, usually kept as a pet or for catching mice.
-                        </p>
-                    </fieldset>
-                    <fieldset class="example-box" role="presentation">
-                        <legend>Example</legend>
-                        <p class="example">My cat likes dozing in front of the fire.</p>
-                        <p class="example">I usually feed the neighbour's cat while she's away.</p>
-                    </fieldset>
-                </div> -->
-            
-                <!-- Third Word Box -->
-                <!-- <div class="definition-box">
-                  <div class="word-header">
-                    <h3>Cow</h3>
-                    <div class="buttons">
-                      <button class="btn regenerate">Regenerate</button>
-                      <button class="btn edit">Edit</button>
-                    </div>
-                  </div>
-                  <fieldset class="def-box" role="presentation">
-                    <legend>Definition</legend>
-                    <p class="definition">
-                        A large female farm animal kept to produce meat and milk.
-                      </p>
-                  </fieldset>
-                  <fieldset class="example-box" role="presentation">
-                    <legend>Example</legend>
-                    <p class="example">Most of these ranchers own only a bull and about twenty cows.</p>
-                  </fieldset>
-                </div> -->
+                {% endfor %}
             
                 <!-- Save and Cancel Buttons -->
                 <div class="actions">
