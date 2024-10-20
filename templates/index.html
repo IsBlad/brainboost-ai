@@ -16,7 +16,7 @@
         <nav>
             <a href="{{ url_for('index') }}">Start</a>
             <a href="{{ url_for('lists') }}">My Lists</a>
-            <button id="login-btn" class="btn">Login</button>
+            <button id="login-btn" class="login-btn btn">Login</button>
         </nav>
         <!-- Hamburger icon -->
         <div class="hamburger-menu" id="hamburger-menu">
@@ -43,10 +43,10 @@
                 <h2>Login</h2>
                 <form id="loginForm" method="post">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required><br>
+                    <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required><br>
-                    <button class="btn" type="submit">Submit</button>
+                    <input type="password" placeholder="password" id="password" name="password" required><br>
+                    <button class="submit-btn btn" type="submit">Submit</button>
                 </form>
                 </div>
             </div>

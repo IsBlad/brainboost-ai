@@ -19,7 +19,7 @@ header {
     background-color: #fff;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 }
-
+/* Button Styling */
 .btn {
     padding: 6px 22px;
     background-color: #267CAE; 
@@ -80,6 +80,7 @@ nav a:hover {
     background-color: #165497;
 }
 
+/* Hamburger menu Styling */
 .hamburger-menu {
     display: none;
     flex-direction: column;
@@ -132,6 +133,7 @@ nav a:hover {
     }
 }
 
+/* Start page Styling */
 .start-image img {
     width: 100%;
     display: flex;
@@ -145,20 +147,20 @@ nav a:hover {
 .image-container {
     position: relative;
     height: 100vh;
-    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9)), /* White overlay with 50% transparency */
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9)), /* White overlay with transparency */
     url('/static/img/background.png') no-repeat center center/cover; /* Full-page background */
     display: flex;
-    justify-content: center; /* Align the text window to the right */
+    justify-content: center;
     align-items: center;
 }
 /* Text Window Styling */
 .text-window {
-    max-width: 700px; /* Adjust based on your needs */
+    max-width: 700px;
     background-color: rgba(182, 214, 224, 0.9); /* White background with slight transparency */
     padding: 40px;
-    margin-bottom: 200px; /* Space from the right edge */
+    margin-bottom: 200px;
     border-radius: 10px;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Added shadow for depth */
 }
 .text-window h1 {
     font-size: 2.2rem;
@@ -175,7 +177,7 @@ nav a:hover {
     text-align: center;
 }
 
-/* Button Styling */
+/* Generate Button Styling */
 .gen-btn {
     padding: 10px 20px;
     background-color: #267CAE; 
@@ -214,6 +216,8 @@ nav a:hover {
         font-size: 1.2rem;
     }
 }
+
+/* Footer Styling */
 footer {
     text-align: center;
     font-size: 12px;
@@ -226,30 +230,31 @@ footer {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; 
-  z-index: 1; 
+  z-index: 1;
+  padding: 30px; 
   left: 0;
   top: 0;
   width: 100%; 
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Modal Content Box */
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* Center the modal */
-  padding: 20px;
+  padding: 40px;
+  border-radius: 10px;
   border: 1px solid #888;
   width: 80%; 
-  max-width: 300px; /* Responsive size */
-  text-align: center; /* Center form elements */
+  max-width: 400px; /* Responsive size */
 }
 
 /* Close Button */
 .close {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -261,16 +266,22 @@ footer {
 }
 
 /* Form Inputs */
-form label {
+#loginForm label {
   display: block;
   margin: 10px 0 5px;
 }
 
-form input {
+#loginForm input {
   width: 100%;
   padding: 8px;
   margin-bottom: 15px;
 }
+
+
+
+
+
+
 
 
 /* Addwords as well? */
@@ -286,7 +297,7 @@ form input {
     padding: 0 60px;
     background-color: #cfe0e8; /* Light blue background */
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   #listForm h3 {
@@ -377,7 +388,7 @@ form input {
     flex: 0 0 48%; /* Each input group takes up approximately half the container's width */
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 /* Label Styling within Input Groups */
@@ -722,11 +733,11 @@ h2 {
   }
 
   .word-input-group {
-    flex-basis: 100%; /* Each input takes the full width on small screens */
+    flex-basis: 80%; /* Each input takes the full width on small screens */
   }
 
   #add-word-btn {
-    flex-basis: 100%; /* Add button takes full width on small screens */
+    flex-basis: 80%; /* Add button takes full width on small screens */
   }
 
   .actions .btn {
