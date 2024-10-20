@@ -1,15 +1,22 @@
 import csv
 
 class CSVHandler:
-    def __init__(self, file_path):
-        self.file_path = file_path
-
-    def read_csv(self):
-        with open(self.file_path, newline='') as csvfile:
-            reader = csv.reader(csvfile)
-            return list(reader)
+    def write_csv(self, file_name, data):
         
-    def write_csv(self, data):
-        with open(self.file_path, 'w', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerows(data)
+        file_path = f"data/{file_name}.csv"
+        
+        with open(file_path, 'w', newline='') as csvfile:
+            fieldnames = ['word', 'definition', 'example_sentence']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            
+            writer.writeheader()
+            for row in data:
+                writer.writerow(row)
+
+example_list = [
+    {'word': 'Banana', 'definition': 'A long, yellow fruit that is soft inside and sweet.', 'example_sentence': 'I like to eat a banana for breakfast because it is tasty and healthy.'},
+    {'word': 'Orange', 'definition': 'A round, orange fruit that is juicy and sweet.', 'example_sentence': 'She drinks orange juice every morning to feel fresh.'}
+]
+
+csv_handler = CSVHandler()
+csv_handler.write_csv('test2', example_list)
