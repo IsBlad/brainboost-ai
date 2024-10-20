@@ -12,11 +12,18 @@ class CSVHandler:
             writer.writeheader()
             for row in data:
                 writer.writerow(row)
+    
+    def read_csv(self, file_name):
+        file_path = f"data/{file_name}.csv"
+        with open(file_path, 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            return list(reader)
 
     def count_csv_rows(self, file_name):
         file_path = f"data/{file_name}.csv"
         with open(file_path, 'r') as csvfile:
             reader = csv.reader(csvfile)
+            next(reader, None)  # Skip the header row
             return sum(1 for row in reader)
 
 example_list = [
@@ -27,3 +34,10 @@ example_list = [
 csv_handler = CSVHandler()
 csv_handler.write_csv('test2', example_list)
 print(csv_handler.count_csv_rows('test2'))
+print(csv_handler.read_csv('testfromapppy1234'))
+
+data = csv_handler.read_csv('testfromapppy1234')
+for row in data:
+    print(row["word"])
+    print(row["definition"])
+    print(row["example_sentence"])
