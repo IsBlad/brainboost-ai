@@ -53,20 +53,20 @@ class OpenAIClient:
         
         return words_list
     
-test_list = ["Banana", "Orange"]
-test_list_1_word = ["Car"]
+# test_list = ["Banana", "Orange"]
+# test_list_1_word = ["Car"]
 
-client = OpenAIClient()
-try:
-    result = client.generate_definitions(test_list)
-    print("openai_client.py test_list:", test_list)
-    print("openai_client.py result:", result)
-except Exception as e:
-    print(f"An error occurred: {str(e)}")
+# client = OpenAIClient()
+# try:
+#     result = client.generate_definitions(test_list)
+#     print("openai_client.py test_list:", test_list)
+#     print("openai_client.py result:", result)
+# except Exception as e:
+#     print(f"An error occurred: {str(e)}")
 
-try:
-    result = client.generate_definitions(test_list_1_word)
-    print("openai_client.py test_list_1_word:", test_list_1_word)
-    print("openai_client.py result:", result)
-except Exception as e:
-    print(f"An error occurred: {str(e)}")
+# try:
+#     result = client.generate_definitions(test_list_1_word)
+#     print("openai_client.py test_list_1_word:", test_list_1_word)
+#     print("openai_client.py result:", result)
+# except Exception as e:
+#     print(f"An error occurred: {str(e)}")

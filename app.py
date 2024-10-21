@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from instance import settings
+from config import settings
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 
