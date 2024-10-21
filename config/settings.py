@@ -60,3 +60,44 @@ SYSTEM_MESSAGE = {
             - The example sentences should show the word being used in natural, everyday contexts.
             """
         }
+
+JSON_SCHEMA = {
+    "name": "words_schema",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "words": {
+          "type": "array",
+          "description": "A collection of words with their definitions and example sentences.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "word": {
+                "type": "string",
+                "description": "The word itself."
+              },
+              "definition": {
+                "type": "string",
+                "description": "The meaning of the word."
+              },
+              "example_sentence": {
+                "type": "string",
+                "description": "An example of the word used in a sentence."
+              }
+            },
+            "required": [
+              "word",
+              "definition",
+              "example_sentence"
+            ],
+            "additionalProperties": False
+          }
+        }
+      },
+      "required": [
+        "words"
+      ],
+      "additionalProperties": False
+    },
+    "strict": True
+  }

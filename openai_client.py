@@ -1,7 +1,7 @@
 from openai import OpenAI
 import toml
 import json
-from config.settings import CEFR_LEVEL, SYSTEM_MESSAGE
+from config.settings import CEFR_LEVEL, SYSTEM_MESSAGE, JSON_SCHEMA
 
 class OpenAIClient:
     def __init__(self, config_path="instance/api_key.toml"):
@@ -36,7 +36,8 @@ class OpenAIClient:
             frequency_penalty=0,
             presence_penalty=0,
             response_format={
-                "type": "json_object"
+                "type": "json_schema",
+                "json_schema": JSON_SCHEMA
             }
         )
 
@@ -52,11 +53,20 @@ class OpenAIClient:
         
         return words_list
     
-# test_list = ["Banana", "Orange"]
-# client = OpenAIClient()
-# try:
-#     result = client.generate_definitions(test_list)
-#     print("openai_client.py test_list:", test_list)
-#     print("openai_client.py result:", result)
-# except Exception as e:
-#     print(f"An error occurred: {str(e)}")
+test_list = ["Banana", "Orange"]
+test_list_1_word = ["Car"]
+
+client = OpenAIClient()
+try:
+    result = client.generate_definitions(test_list)
+    print("openai_client.py test_list:", test_list)
+    print("openai_client.py result:", result)
+except Exception as e:
+    print(f"An error occurred: {str(e)}")
+
+try:
+    result = client.generate_definitions(test_list_1_word)
+    print("openai_client.py test_list_1_word:", test_list_1_word)
+    print("openai_client.py result:", result)
+except Exception as e:
+    print(f"An error occurred: {str(e)}")
