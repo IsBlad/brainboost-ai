@@ -119,17 +119,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-
-    // Real-time validation for each word input
-    wordsContainer.addEventListener('input', function(event) {
-        const target = event.target;
-        if (target && target.tagName.toLowerCase() === 'input') {
-            const index = target.id.replace('word', '');
-            const errorDiv = document.getElementById(`word${index}Error`);
-            if (target.value.trim() !== '') {
-                errorDiv.textContent = '';
-                target.classList.remove('input-error');
-            }
-        }
-    });
 });
