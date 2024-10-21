@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask import Flask, render_template, request, jsonify
 from config import settings
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 
 # Initialise the Flask app
 app = Flask(__name__)
-app.secret_key = 'generalassembly'
 
 # Load configuration from settings.py
 app.config.from_object(settings)
@@ -22,11 +21,8 @@ def index():
 # Route for adding words to a new Vocabulary List
 @app.route('/addwords', methods=['GET', 'POST'])
 def add_words():
-    if 'list_name' not in session or not session['list_name']:
-        session['list_name'] = request.args.get('list', '')
-        session.modified = True  # Explicitly mark the session as modified
-    
-    print(f"List name from addwords at start of function: {session.get('list_name', 'Not set')}")
+    list_name = request.args.get('list', '')
+    # print(list_name)
     count = request.args.get('count', 1, type=int)
 
     if request.method == 'POST':
@@ -34,21 +30,17 @@ def add_words():
         
         if words:
             try:
-                print(f"List name before generating definitions: {session.get('list_name', 'Not set')}")
                 definitions = openai_client.generate_definitions(words)
-                print(f"List name before writing CSV: {session.get('list_name', 'Not set')}")
-                csv_handler.write_csv(session['list_name'], definitions)
-                print(f"List name after writing CSV: {session.get('list_name', 'Not set')}")
+                csv_handler.write_csv(list_name, definitions)
                 
-                return redirect(url_for('review_definitions'))
+                return render_template('vocabularylist/reviewdefinitions.html', word_list=csv_handler.read_csv(list_name))
             except Exception as e:
-                print(f"Error occurred. List name: {session.get('list_name', 'Not set')}")
                 return jsonify({'error': str(e)}), 400
         else:
             return jsonify({'error': "No words were provided."}), 400
 
     # If it's a GET request, just render the form
-    return render_template('vocabularylist/addwords.html', list_name=session.get('list_name', ''), count=count)
+    return render_template('vocabularylist/addwords.html', list_name=list_name, count=count)
 
 # Route for creating Vocabulary Lists
 @app.route('/listcreate', methods=['GET', 'POST'])
