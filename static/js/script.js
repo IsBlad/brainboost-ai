@@ -1,3 +1,4 @@
+// Hamburger menue
 document.getElementById("hamburger-menu").addEventListener("click", function() {
     const nav = document.querySelector("nav");
     nav.classList.toggle("nav-active");
@@ -17,7 +18,7 @@ loginBtn.onclick = function() {
   modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
+// When the user clicks on <span> x, close the modal
 closeBtn.onclick = function() {
   modal.style.display = "none";
 }
