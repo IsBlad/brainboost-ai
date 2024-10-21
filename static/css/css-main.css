@@ -353,6 +353,34 @@ footer {
     padding: 10px 60px;
 }
 
+@media (max-width: 768px) {
+    .list {
+      padding: 10px 20px;
+    }
+  
+    .container {
+      padding: 15px;
+    }
+  
+    #listForm h3 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+  
+    .input-group {
+      margin: 20px 0;
+    }
+  
+    .input-group .input-number {
+      width: 70px;
+      margin-left: 15px;
+    }
+  
+    .submit-btn {
+      padding: 10px 40px;
+    }
+  }
+
 
 
 
