@@ -36,7 +36,9 @@
                         <p>23 words</p>
                         <div class="card-buttons">
                             <button class="btn edit-button">Edit</button>
-                            <button class="btn games-button">Games</button>
+                            <button class="btn games-button">
+                                <a href="{{ url_for('game_start') }}">Games</a>
+                             </button>
                         </div>
                     </div>
                     <!-- Card 2 -->
@@ -45,7 +47,9 @@
                         <p>33 words</p>
                         <div class="card-buttons">
                             <button class="btn edit-button">Edit</button>
-                            <button class="btn games-button">Games</button>
+                            <button class="btn games-button">
+                                <a href="{{ url_for('game_start') }}">Games</a>
+                             </button>
                         </div>
                     </div>
                     <!-- Card 3 -->
@@ -54,7 +58,9 @@
                         <p>6 words</p>
                         <div class="card-buttons">
                             <button class="btn edit-button">Edit</button>
-                            <button class="btn games-button">Games</button>
+                            <button class="btn games-button">
+                               <a href="{{ url_for('game_start') }}">Games</a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -69,7 +75,7 @@
                     <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
                     <label for="password">Password:</label>
                     <input type="password" placeholder="password" id="password" name="password" required><br>
-                    <button class="btn" type="submit">Submit</button>
+                    <button class="submit-btn btn" type="submit">Submit</button>
                 </form>
                 </div>
             </div>
@@ -77,6 +83,7 @@
         <footer>
             &copy; 2024 Brainbooost AI all rights reserved
         </footer>
+        <script src="static/js/lists.js"></script>
         <script src="static/js/script.js"></script>
     </body>
 </html>
