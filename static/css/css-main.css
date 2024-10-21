@@ -353,13 +353,23 @@ footer {
     padding: 10px 60px;
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
     .list {
-      padding: 10px 20px;
+      width: 90%;
+      padding: 15px;
     }
   
     .container {
-      padding: 15px;
+      padding: 10px;
+    }
+  
+    #listForm {
+      padding: 10px;
+    }
+  
+    .form-container {
+      padding: 10px;
     }
   
     #listForm h3 {
@@ -368,12 +378,17 @@ footer {
     }
   
     .input-group {
-      margin: 20px 0;
+      margin-top: 20px;
+      margin-bottom: 30px;
     }
   
     .input-group .input-number {
-      width: 70px;
       margin-left: 15px;
+      width: 70px;
+    }
+  
+    #inputLabel {
+        margin-left: 50px;
     }
   
     .submit-btn {
