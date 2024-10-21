@@ -139,10 +139,6 @@ nav a:hover {
     display: flex;
 }
 
-.start-box {
-    justify-content: flex-end;
-}
-
 /* Image Container: Full-page background */
 .image-container {
     position: relative;
@@ -158,7 +154,6 @@ nav a:hover {
     max-width: 700px;
     background-color: rgba(182, 214, 224, 0.9); /* White background with slight transparency */
     padding: 40px;
-    margin-bottom: 200px;
     border-radius: 10px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Added shadow for depth */
 }
@@ -199,7 +194,6 @@ nav a:hover {
 @media (max-width: 768px) {
     .text-window {
         width: 350px;
-        margin-right: 20px;
         padding: 15px;
     }
 
@@ -213,7 +207,7 @@ nav a:hover {
 
     .gen-btn {
         padding: 8px 16px;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 }
 
@@ -269,6 +263,7 @@ footer {
 #loginForm label {
     display: block;
     margin: 10px 0 5px;
+    text-align: center;
 }
 
 #loginForm input {
@@ -290,6 +285,7 @@ footer {
   margin: 50px auto;
   padding: 20px 60px;
 }
+
 .container {
   width: 600px; 
   margin: 50px auto;
@@ -426,26 +422,26 @@ footer {
     text-align: center;
 }
 
-
-/* Add Word Button Styling */
-.add-word {
-    width: 48%; /* Same width as input groups */
-    max-width: 200px; /* Adjust as needed */
-    padding: 10px;
-    margin: 10px auto;
+  /* Button to Add Word */
+  #add-word-btn {
     display: block;
-    background-color: #267CAE;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    margin: 10px auto;
+    padding: 10px;
     font-size: 1rem;
+    background-color: #fff;
+    color: #437ca7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     cursor: pointer;
+    width: 48%; /* Same width as input groups */
     transition: background-color 0.3s;
-}
+    flex-basis: calc(50% - 20px); /* Takes 50% of the container width minus gap */
+    text-align: center; /* Ensures text stays centered */
+  }
 
-.add-word:hover {
-    background-color: #165497;
-}
+  #add-word-btn:hover {
+    background-color: #cececd;
+  }
 
 /* Generate Definition Button Styling */
 .gen-def {
@@ -480,7 +476,7 @@ footer {
         padding: 20px;
     }
 
-    #word-input-group .input-group {
+    #word-input-group .input-box {
         flex: 0 0 100%; /* Stack input groups vertically on smaller screens */
     }
 
@@ -627,8 +623,8 @@ footer {
     }
   
     .btn {
-      font-size: 0.8rem;
-      padding: 5px 10px;
+      font-size: 1.2rem;
+      padding: 8px 15px;
     }
   
     .word-header h3 {
@@ -649,7 +645,7 @@ footer {
 
 
 
-/*Addwords*/
+/**/
 .list {
     max-width: 700px;
     width: 100%;
@@ -694,25 +690,6 @@ h2 {
     width: 100%;
     box-sizing: border-box;
   }
-  
-  /* Button to Add Word */
-  #add-word-btn {
-    padding: 10px;
-    font-size: 1rem;
-    background-color: #fff;
-    color: #437ca7;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    box-sizing: border-box; /* Makes sure it takes up the same space as the inputs */
-    flex-basis: calc(50% - 20px); /* Takes 50% of the container width minus gap */
-    text-align: center; /* Ensures text stays centered */
-  }
-
-  #add-word-btn:hover {
-    background-color: #cececd;
-  }
 
   /* Save and Cancel Button Styling */
 .action {
@@ -746,10 +723,7 @@ h2 {
   .actions .btn {
     width: 100%; /* Buttons take full width on smaller screens */
   }
-}
-
-
-
+} 
 
 
 
