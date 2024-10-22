@@ -1,4 +1,7 @@
-// Hamburger menue
+// Check if the script is loaded
+console.log("script.js is loaded and running");
+
+// Hamburger menu
 document.getElementById("hamburger-menu").addEventListener("click", function() {
     const nav = document.querySelector("nav");
     nav.classList.toggle("nav-active");
@@ -17,6 +20,7 @@ const closeBtn = document.querySelector(".close");
 loginBtn.onclick = function() {
   modal.style.display = "block";
 }
+
 
 // When the user clicks on <span> x, close the modal
 closeBtn.onclick = function() {

@@ -1,5 +1,7 @@
+// Check if the script is loaded
+console.log("worddefinition.js is loaded and running");
+
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("Script is loaded and running");
     const urlParams = new URLSearchParams(window.location.search);
     const listValue = urlParams.get('list'); // Get the value of the 'list' parameter
 
