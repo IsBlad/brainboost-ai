@@ -30,18 +30,18 @@
         <main>
             <div class="container">
                 <!-- Input Words Form Section -->
-                <form id="listForm" novalidate>
+                <form id="listForm" method="POST" action="{{ url_for('list_create') }}" novalidate>
                     <h3>Create Word List</h3>
                     <!-- Name of the list input -->
                     <div class="input-group">
                         <label for="listName" class="input-label"></label>
-                        <input type="text" placeholder="Enter List Name Here" id="listName" class="input-text" required>
+                        <input type="text" name="listName" placeholder="Enter List Name Here" id="listName" class="input-text" required>
                         <div class="error-message" id="listNameError"></div>
                     </div>
                     <!-- Number of words input -->
                     <div class="input-group">
                         <label for="wordCount" id="inputLabel" class="input-label">Number of words:</label>
-                        <input type="number" value="1" min="1" id="wordCount" class="input-number" required>
+                        <input type="number" name="wordCount" value="1" min="1" id="wordCount" class="input-number" required>
                         <div class="error-message" id="wordCountError"></div>
                     </div>
                     <!-- Submit button -->
