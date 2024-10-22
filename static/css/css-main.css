@@ -459,6 +459,12 @@ footer {
     border-color: #165497;
 }
 
+/* Input Error Styling */
+.input-error {
+    border: 2px solid #ff0000 !important;
+    background-color: #fff0f0;
+}
+
 /* Error Message Styling */
 .error-message {
     color: red;
