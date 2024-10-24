@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify
 from config import settings
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 
 # Initialise the Flask app
 app = Flask(__name__)
-app.secret_key = 'generalassembly'
 
 # Load configuration from settings.py
 app.config.from_object(settings)
@@ -22,9 +21,10 @@ def index():
 # Route for adding words to a new Vocabulary List
 @app.route('/addwords', methods=['GET', 'POST'])
 def add_words():
-    list_name = session.get('list_name', request.args.get('list', ''))
+    list_name = request.args.get('list', '')
+    # print(list_name)
     count = request.args.get('count', 1, type=int)
-    print(f"After session: list_name: {session['list_name']},")
+
     if request.method == 'POST':
         words = request.form.getlist('word')
         
@@ -33,7 +33,7 @@ def add_words():
                 definitions = openai_client.generate_definitions(words)
                 csv_handler.write_csv(list_name, definitions)
                 
-                return redirect(url_for('review_definitions', list=list_name))
+                return render_template('vocabularylist/reviewdefinitions.html', word_list=csv_handler.read_csv(list_name))
             except Exception as e:
                 return jsonify({'error': str(e)}), 400
         else:
@@ -45,18 +45,6 @@ def add_words():
 # Route for creating Vocabulary Lists
 @app.route('/listcreate', methods=['GET', 'POST'])
 def list_create():
-    if request.method == 'POST':
-        list_name = request.form.get('listName')
-        word_count = request.form.get('wordCount')
-        print(f"After POST: list_name: {list_name}, word_count: {word_count}")
-        
-        if list_name and word_count:
-            session['list_name'] = list_name
-            print(f"After session: list_name: {session['list_name']}")
-            return redirect(url_for('add_words', list=list_name, count=word_count))
-        else:
-            return jsonify({'error': "List name and word count are required."}), 400
-
     return render_template('vocabularylist/listcreate.html')
 
 # Route to view all Vocabulary Lists
@@ -72,9 +60,7 @@ def word_definition():
 # Route to view all Vocabulary Lists
 @app.route('/reviewdefinitions')
 def review_definitions():
-    list_name = session.get('list_name', request.args.get('list', ''))
-    word_list = csv_handler.read_csv(list_name) if list_name else []
-    return render_template('vocabularylist/reviewdefinitions.html', word_list=word_list, list_name=list_name)
+    return render_template('vocabularylist/reviewdefinitions.html')
 
 # Route for starting a game
 @app.route('/gamestart')
