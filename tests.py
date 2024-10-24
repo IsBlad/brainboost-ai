@@ -1,6 +1,20 @@
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 
+def main():
+    '''Tests for OpenAI Client and CSV Handler. Comment out unused tests.'''
+    # OpenAI Client Tests
+    test_generate_definitions_single_word()
+    test_generate_definitions_multiple_words()
+
+    # CSV Handler Tests
+    test_write_csv("test", test_parsed_word_list)
+    test_read_csv("test_definitions")
+    test_count_csv_rows("test_definitions")
+
+    # TODO: List name integration test
+    # TODO: Word list integration test
+
 ### OpenAI Client Tests ###
 client = OpenAIClient()
 
@@ -69,12 +83,4 @@ def test_count_csv_rows(filename):
         print(f"An error occurred: {str(e)}")
     print()
 
-# ### Run the tests ###
-# OpenAI Client Tests
-test_generate_definitions_single_word()
-test_generate_definitions_multiple_words()
-
-# CSV Handler Tests
-test_write_csv("test", test_parsed_word_list)
-test_read_csv("test_definitions")
-test_count_csv_rows("test_definitions")
+main()
