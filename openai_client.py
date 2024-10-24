@@ -40,11 +40,11 @@ class OpenAIClient:
                 "json_schema": JSON_SCHEMA
             }
         )
-
         # Extract the content from the response
         content = response.choices[0].message.content
         
-        print(f"Content: {content}")
+        print(content)
+        
         # Parse the JSON content
         parsed_content = json.loads(content)
         
