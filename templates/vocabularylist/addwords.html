@@ -31,7 +31,8 @@
                 <!-- Header with List Name -->
                 <h2 id="listName">List Name Here</h2>
                 <!-- Form for Adding Words -->
-                <form action="{{ url_for('add_words') }}" method="POST" id="word-form">
+                <form id="word-form" method="POST" action="{{ url_for('add_words') }}">
+                    <input type="hidden" name="list_name" value="{{ list_name }}">
                     <div id="word-input-group">
                         <!-- Dynamically generated word input fields will appear here -->
                     </div>
