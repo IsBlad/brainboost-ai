@@ -11,6 +11,7 @@ def main():
     test_write_csv("test", test_parsed_word_list)
     test_read_csv("test_definitions")
     test_count_csv_rows("test_definitions")
+    test_get_wordlists_and_counts()
 
     # TODO: List name integration test
     # TODO: Word list integration test
@@ -68,6 +69,17 @@ def test_read_csv(filename):
     print()
     try:
         print(f"CSV content: {csv_handler.read_csv(filename)}")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+    print()
+
+def test_get_wordlists_and_counts():
+    print("**********************************************")
+    print("CSV Handler: Testing get_wordlists_and_counts")
+    print("**********************************************")
+    print()
+    try:
+        print(f"Wordlists and counts: {csv_handler.get_wordlists_and_counts()}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
     print()

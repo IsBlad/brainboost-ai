@@ -1,4 +1,6 @@
 import csv
+import glob
+import os
 
 class CSVHandler:
     def write_csv(self, file_name, data):
@@ -18,6 +20,19 @@ class CSVHandler:
         with open(file_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             return list(reader)
+        
+    def get_wordlists_and_counts(self):
+        '''Returns a list of all CSV files and their row counts (i.e. # of words) in the data directory'''
+        csv_files = glob.glob("data/*.csv")
+
+        wordlists_and_counts = {}
+        
+        for file in csv_files:
+            filename = os.path.splitext(os.path.basename(file))[0]  # Get filename without extension
+            row_count = self.count_csv_rows(filename)
+            wordlists_and_counts[filename] = row_count
+
+        return wordlists_and_counts
 
     def count_csv_rows(self, file_name):
         file_path = f"data/{file_name}.csv"
