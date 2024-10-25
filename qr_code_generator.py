@@ -7,7 +7,10 @@ class QRCodeGenerator:
     '''Class to generate QR codes'''
     
     def generate_qr_code(self, activity, list_name):
+        '''Generates a QR code for a given activity and list name'''
+
         url = f"{BASE_URL}/gamestart?activity={activity}&list={list_name}"
+        
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
