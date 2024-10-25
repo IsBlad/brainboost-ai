@@ -1,4 +1,18 @@
-# Settings that may change depending on the user
+
+# Website URLs
+BASE_URL = "http://127.0.0.1:5000"
+
+# File directory paths
+DATA_DIR = "data"
+QR_CODE_DIR = f"static/img/qrcodes"
+
+# Activity options
+ACTIVITIES = (
+    "WordsUp",
+    "Crossword"
+)
+
+# Constants for the OpenAI API call in openai_client.py
 
 CEFR_LEVEL = "B1" # This is the CEFR level of the learner
 

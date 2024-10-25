@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from config import settings
+from config import constants
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 
@@ -7,7 +7,7 @@ from csv_handler import CSVHandler
 app = Flask(__name__)
 
 # Load configuration from settings.py
-app.config.from_object(settings)
+app.config.from_object(constants)
 
 # Initialise OpenAIClient and CSVHandler
 openai_client = OpenAIClient()
@@ -72,6 +72,14 @@ def review_definitions():
     else:
         # If no list name is provided, redirect to the lists page
         return redirect(url_for('lists'))
+
+# Route for displaying QR Code
+@app.route('/qrcode')
+def qr_code():
+    list_name = request.args.get('list', '')
+    activity = request.args.get('activity', '')
+    qr_code = qr_code_generator.generate_qr_code(list_name, activity)
+    return render_template('wordsup/qrcode.html', qr_code=qr_code)
 
 # Route for starting a game
 @app.route('/gamestart')

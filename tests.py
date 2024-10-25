@@ -2,21 +2,22 @@ from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 from qr_code_generator import QRCodeGenerator
 import os
+from config.constants import BASE_URL
 
 def main():
     '''Tests for OpenAI Client and CSV Handler. Comment out unused tests.'''
     # OpenAI Client Tests
-    # test_generate_definitions_single_word()
-    # test_generate_definitions_multiple_words()
+    test_generate_definitions_single_word()
+    test_generate_definitions_multiple_words()
 
-    # # CSV Handler Tests
-    # test_write_csv(filename="test", test_parsed_word_list)
-    # test_read_csv(filename="test_definitions")
-    # test_count_csv_rows(filename="test_definitions")
-    # test_get_wordlists_and_counts()
+    # CSV Handler Tests
+    test_write_csv("test", test_parsed_word_list)
+    test_read_csv("test_definitions")
+    test_count_csv_rows("test_definitions")
+    test_get_wordlists_and_counts()
 
     # QR Code Generator Tests
-    test_generate_qr_code(url="https://www.google.com", filename="google")
+    test_generate_qr_code(activity="WordsUp", list_name="Animals")
 
     # TODO: List name integration test
     # TODO: Word list integration test
@@ -26,9 +27,10 @@ client = OpenAIClient()
 
 def test_generate_definitions_single_word():
     print()
-    print("******************************************************************")
+    print("**************************************************************")
     print("OpenAI Client: Testing generate_definitions with a single word")
-    print("******************************************************************")
+    print("**************************************************************")
+    print()
     try:
         print(f"Parsed word list: {client.generate_definitions(['Car'])}")
     except Exception as e:
@@ -36,9 +38,9 @@ def test_generate_definitions_single_word():
     print()
 
 def test_generate_definitions_multiple_words():
-    print("******************************************************************")
+    print("****************************************************************")
     print("OpenAI Client: Testing generate_definitions with multiple words")
-    print("******************************************************************")
+    print("****************************************************************")
     print()
     try:
         print(f"Parsed word list: {client.generate_definitions(['Banana', 'Orange'])}")
@@ -55,9 +57,9 @@ test_parsed_word_list = [
 ]
 
 def test_write_csv(filename, test_parsed_word_list):   
-    print("************************************")
+    print("******************************")
     print("CSV Handler: Testing write_csv")
-    print("************************************")
+    print("******************************")
     print()
     try:
         csv_handler.write_csv(filename, test_parsed_word_list)
@@ -68,9 +70,9 @@ def test_write_csv(filename, test_parsed_word_list):
     print()
 
 def test_read_csv(filename):
-    print("************************************")
+    print("******************************")
     print("CSV Handler: Testing read_csv")
-    print("************************************")
+    print("******************************")
     print()
     try:
         print(f"CSV content: {csv_handler.read_csv(filename)}")
@@ -103,16 +105,16 @@ def test_count_csv_rows(filename):
 ### QR Code Generator Tests ###
 qr_generator = QRCodeGenerator()
 
-def test_generate_qr_code(url, filename):
-    print("************************************")
+def test_generate_qr_code(activity, list_name):
+    print("********************************************")
     print("QR Code Generator: Testing generate_qr_code")
-    print("************************************")
+    print("********************************************")
     print()
     try:
-        result = qr_generator.generate_qr_code(url, filename)
+        result = qr_generator.generate_qr_code(activity, list_name)
         
         print(f"QR code generated and saved to: {result}")
-        print(f"Scan the QR code to verify it leads to: {url}")
+        print(f"Scan the QR code to verify it leads to: {BASE_URL}/gamestart?activity={activity}&list={list_name}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
     print()
