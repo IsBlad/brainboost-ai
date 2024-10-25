@@ -1,17 +1,22 @@
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
+from qr_code_generator import QRCodeGenerator
+import os
 
 def main():
     '''Tests for OpenAI Client and CSV Handler. Comment out unused tests.'''
     # OpenAI Client Tests
-    test_generate_definitions_single_word()
-    test_generate_definitions_multiple_words()
+    # test_generate_definitions_single_word()
+    # test_generate_definitions_multiple_words()
 
-    # CSV Handler Tests
-    test_write_csv("test", test_parsed_word_list)
-    test_read_csv("test_definitions")
-    test_count_csv_rows("test_definitions")
-    test_get_wordlists_and_counts()
+    # # CSV Handler Tests
+    # test_write_csv(filename="test", test_parsed_word_list)
+    # test_read_csv(filename="test_definitions")
+    # test_count_csv_rows(filename="test_definitions")
+    # test_get_wordlists_and_counts()
+
+    # QR Code Generator Tests
+    test_generate_qr_code(url="https://www.google.com", filename="google")
 
     # TODO: List name integration test
     # TODO: Word list integration test
@@ -94,5 +99,23 @@ def test_count_csv_rows(filename):
     except Exception as e:
         print(f"An error occurred: {str(e)}")
     print()
+
+### QR Code Generator Tests ###
+qr_generator = QRCodeGenerator()
+
+def test_generate_qr_code(url, filename):
+    print("************************************")
+    print("QR Code Generator: Testing generate_qr_code")
+    print("************************************")
+    print()
+    try:
+        result = qr_generator.generate_qr_code(url, filename)
+        
+        print(f"QR code generated and saved to: {result}")
+        print(f"Scan the QR code to verify it leads to: {url}")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+    print()
+
 
 main()
