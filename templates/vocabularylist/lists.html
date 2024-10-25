@@ -36,7 +36,7 @@
                         <h2>{{ list_name }}</h2>
                         <p>{{ count }} words</p>
                         <div class="card-buttons">
-                            <button class="btn edit-button">Edit</button>
+                            <button class="btn edit-button" onclick="editList('{{ list_name }}')">Edit</button>
                             <button class="btn games-button">
                                 <a href="{{ url_for('game_start') }}">Games</a>
                              </button>
@@ -65,5 +65,10 @@
         </footer>
         <script src="static/js/lists.js"></script>
         <script src="static/js/script.js"></script>
+        <script>
+        function editList(listName) {
+            window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
+        }
+        </script>
     </body>
 </html>

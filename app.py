@@ -63,7 +63,15 @@ def word_definition():
 # Route to view all Vocabulary Lists
 @app.route('/reviewdefinitions')
 def review_definitions():
-    return render_template('vocabularylist/reviewdefinitions.html')
+    list_name = request.args.get('list', '')
+    if list_name:
+        word_list = csv_handler.read_csv(list_name)
+        return render_template('vocabularylist/reviewdefinitions.html', 
+                               word_list=word_list,
+                               list_name=list_name)
+    else:
+        # If no list name is provided, redirect to the lists page
+        return redirect(url_for('lists'))
 
 # Route for starting a game
 @app.route('/gamestart')
