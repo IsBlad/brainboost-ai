@@ -5,6 +5,7 @@ BASE_URL = "http://127.0.0.1:5000"
 # File directory paths
 DATA_DIR = "data"
 QR_CODE_DIR = f"static/img/qrcodes"
+API_KEY_PATH = "instance/api_key.toml"
 
 # Activity options
 ACTIVITIES = (
