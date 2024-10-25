@@ -52,7 +52,8 @@ def list_create():
 # Route to view all Vocabulary Lists
 @app.route('/lists')
 def lists():
-    return render_template('vocabularylist/lists.html')
+    wordlists_and_counts = csv_handler.get_wordlists_and_counts()
+    return render_template('vocabularylist/lists.html', wordlists_and_counts=wordlists_and_counts)
 
 # Route to view all Vocabulary Lists
 @app.route('/worddefinition')

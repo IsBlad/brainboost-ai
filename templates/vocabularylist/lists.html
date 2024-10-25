@@ -30,10 +30,11 @@
             <div class="lists-container">
                 <h1>My Vocabulary Lists</h1>
                 <div class="card-container">
-                    <!-- Card 1 -->
+                    <!-- Loop through the wordlists_and_counts dictionary -->
+                    {% for list_name, count in wordlists_and_counts.items() %}
                     <div class="card">
-                        <h2>Fruit</h2>
-                        <p>23 words</p>
+                        <h2>{{ list_name }}</h2>
+                        <p>{{ count }} words</p>
                         <div class="card-buttons">
                             <button class="btn edit-button">Edit</button>
                             <button class="btn games-button">
@@ -41,28 +42,7 @@
                              </button>
                         </div>
                     </div>
-                    <!-- Card 2 -->
-                    <div class="card">
-                        <h2>Verbs</h2>
-                        <p>33 words</p>
-                        <div class="card-buttons">
-                            <button class="btn edit-button">Edit</button>
-                            <button class="btn games-button">
-                                <a href="{{ url_for('game_start') }}">Games</a>
-                             </button>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="card">
-                        <h2>Element</h2>
-                        <p>6 words</p>
-                        <div class="card-buttons">
-                            <button class="btn edit-button">Edit</button>
-                            <button class="btn games-button">
-                               <a href="{{ url_for('game_start') }}">Games</a>
-                            </button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <!-- Login Modal -->
