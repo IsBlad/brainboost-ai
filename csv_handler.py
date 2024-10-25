@@ -41,3 +41,7 @@ class CSVHandler:
             reader = csv.reader(csvfile)
             next(reader, None)  # Skip the header row
             return sum(1 for row in reader)
+        
+    def delete_csv(self, file_name):
+        file_path = f"{DATA_DIR}/{file_name}.csv"
+        os.remove(file_path)

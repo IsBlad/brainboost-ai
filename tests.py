@@ -6,18 +6,19 @@ from config.constants import BASE_URL
 
 def main():
     '''Tests for OpenAI Client and CSV Handler. Comment out unused tests.'''
-    # OpenAI Client Tests
-    test_generate_definitions_single_word()
-    test_generate_definitions_multiple_words()
+    # # OpenAI Client Tests
+    # test_generate_definitions_single_word()
+    # test_generate_definitions_multiple_words()
 
-    # CSV Handler Tests
-    test_write_csv("test", test_parsed_word_list)
-    test_read_csv("test_definitions")
-    test_count_csv_rows("test_definitions")
-    test_get_wordlists_and_counts()
+    # # CSV Handler Tests
+    # test_write_csv("test", test_parsed_word_list)
+    # test_read_csv(filename="test_definitions")
+    # test_count_csv_rows(filename="test_definitions")
+    # test_get_wordlists_and_counts()
+    test_delete_csv("Animals")
 
-    # QR Code Generator Tests
-    test_generate_qr_code(activity="WordsUp", list_name="Animals")
+    # # QR Code Generator Tests
+    # test_generate_qr_code(activity="WordsUp", list_name="Animals")
 
     # TODO: List name integration test
     # TODO: Word list integration test
@@ -119,5 +120,16 @@ def test_generate_qr_code(activity, list_name):
         print(f"An error occurred: {str(e)}")
     print()
 
+def test_delete_csv(filename):
+    print("********************************")
+    print("CSV Handler: Testing delete_csv")
+    print("********************************")
+    print()
+    try:
+        csv_handler.delete_csv(filename)
+        print(f"CSV file {filename}.csv has been deleted successfully.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+    print()
 
 main()
