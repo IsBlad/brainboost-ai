@@ -1,74 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Brainboost AI</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="static/css/css-main.css" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
-    </head>
-    <header class="global-header" id="top-nav">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='img/Brainboost Logo.jpg') }}" alt="Website Logo">
-        </div>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('lists') }}">My Lists</a>
-            <button id="login-btn" class="login-btn btn">Login</button>
-        </nav>
-        <!-- Hamburger icon -->
-        <div class="hamburger-menu" id="hamburger-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
-    <body>
-        <main>
-            <div class="lists-container">
-                <h1>My Vocabulary Lists</h1>
-                <div class="card-container">
-                    <!-- Loop through the wordlists_and_counts dictionary -->
-                    {% for list_name, count in wordlists_and_counts.items() %}
-                    <div class="card">
-                        <h2>{{ list_name }}</h2>
-                        <p>{{ count }} words</p>
-                        <div class="card-buttons">
-                            <button class="btn edit-button" onclick="editList('{{ list_name }}')">Edit</button>
-                            <button class="btn games-button">
-                                <a href="{{ url_for('game_start') }}">Games</a>
-                             </button>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
+{% extends "layout.html" %}
+
+{% block title %}Brainboost AI - My Lists{% endblock %}
+
+{% block content %}
+<div class="lists-container">
+    <h1>My Vocabulary Lists</h1>
+    <div class="card-container">
+        {% for list_name, count in wordlists_and_counts.items() %}
+        <div class="card">
+            <h2>{{ list_name }}</h2>
+            <p>{{ count }} words</p>
+            <div class="card-buttons">
+                <button class="btn edit-button" onclick="editList('{{ list_name }}')">Edit</button>
+                <button class="btn games-button">
+                    <a href="{{ url_for('game_start') }}">Games</a>
+                </button>
             </div>
-            <!-- Login Modal -->
-            <div id="loginModal" class="modal">
-                <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Login</h2>
-                <form id="loginForm" method="post">
-                    <label for="username">Username:</label>
-                    <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
-                    <label for="password">Password:</label>
-                    <input type="password" placeholder="password" id="password" name="password" required><br>
-                    <button class="submit-btn btn" type="submit">Submit</button>
-                </form>
-                </div>
-            </div>
-        </main>
-        <footer>
-            &copy; 2024 Brainbooost AI all rights reserved
-        </footer>
-        <script src="static/js/lists.js"></script>
-        <script src="static/js/script.js"></script>
-        <script>
-        function editList(listName) {
-            window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
-        }
-        </script>
-    </body>
-</html>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/lists.js') }}"></script>
+<script>
+function editList(listName) {
+    window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
+}
+</script>
+{% endblock %}
