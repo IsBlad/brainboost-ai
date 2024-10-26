@@ -4,10 +4,16 @@ from PIL import Image
 from config.constants import BASE_URL, QR_CODE_DIR
 
 class QRCodeGenerator:
-    '''Class to generate QR codes'''
+    '''
+    Class to generate QR codes
+    '''
     
     def generate_qr_code(self, activity, list_name):
-        '''Generates a QR code for a given activity and list name'''
+        '''
+        Generates a QR code for a given activity and list name
+        
+        Saves the QR code to {QR_CODE_DIR}/{activity}_{list_name}.png
+        '''
 
         url = f"{BASE_URL}/gamestart?activity={activity}&list={list_name}"
         

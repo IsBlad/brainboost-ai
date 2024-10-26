@@ -1,18 +1,24 @@
 from openai import OpenAI
 import toml
 import json
-from config.constants import CEFR_LEVEL, SYSTEM_MESSAGE, JSON_SCHEMA
+from config.constants import CEFR_LEVEL, SYSTEM_MESSAGE, JSON_SCHEMA, API_KEY_PATH
 
 class OpenAIClient:
-    def __init__(self, config_path="instance/api_key.toml"):
+    '''
+    Class to interact with the OpenAI API
+    '''
+
+    def __init__(self, config_path=API_KEY_PATH):
         # Load API key from config file and initialise OpenAI client
         self.secrets = toml.load(config_path)
         self.openai_api_key = self.secrets.get("OPENAI_API_KEY")
         self.client = OpenAI(api_key=self.openai_api_key)
 
     def generate_definitions(self, words):
-        '''Generate definitions and example sentences for words provided. 
-        Returns a dictionary with three keys: word, definition, example_sentence'''
+        '''
+        Generate definitions and example sentences for words provided. 
+        Returns a dictionary with three keys: word, definition, example_sentence
+        '''
 
         if not words:
             raise ValueError("No words provided")
