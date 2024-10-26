@@ -1,17 +1,20 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from config import settings
+from config import constants
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
+from qr_code_generator import QRCodeGenerator
+import base64
 
 # Initialise the Flask app
 app = Flask(__name__)
 
 # Load configuration from settings.py
-app.config.from_object(settings)
+app.config.from_object(constants)
 
-# Initialise OpenAIClient and CSVHandler
+# Initialise OpenAIClient, CSVHandler, and QRCodeGenerator
 openai_client = OpenAIClient()
 csv_handler = CSVHandler()
+qr_code_generator = QRCodeGenerator()
 
 # Route for the homepage
 @app.route('/')
@@ -25,17 +28,18 @@ def add_words():
     count = request.args.get('count', 1, type=int)
 
     if request.method == 'POST':
-        list_name = request.form.get('list_name', '')  # Retrieve list_name from form data
+        # Retrieve list_name and words from form data
+        list_name = request.form.get('list_name', '')
         words = request.form.getlist('word')
         
         if words:
             try:
+                # Generate definitions for the words and write to {list_name}.csv
                 definitions = openai_client.generate_definitions(words)
                 csv_handler.write_csv(list_name, definitions)
                 
-                return render_template('vocabularylist/reviewdefinitions.html', 
-                                       word_list=csv_handler.read_csv(list_name),
-                                       list_name=list_name)
+                return redirect(url_for('review_definitions', list=list_name))
+
             except Exception as e:
                 return jsonify({'error': str(e)}), 400
         else:
@@ -72,6 +76,21 @@ def review_definitions():
     else:
         # If no list name is provided, redirect to the lists page
         return redirect(url_for('lists'))
+
+# Route for displaying QR Code
+@app.route('/qrcode/')
+def qr_code():
+    activity = request.args.get('activity', '')
+    list_name = request.args.get('list', '')
+    
+    # Generate the QR code
+    qr_code_bytes = qr_code_generator.generate_qr_code(activity, list_name)
+    
+    # Convert bytes to base64
+    encoded_string = base64.b64encode(qr_code_bytes).decode('utf-8')
+    
+    # Pass the base64 encoded image to the template
+    return render_template('wordsup/qrcode.html', qr_code=encoded_string)
 
 # Route for starting a game
 @app.route('/gamestart')

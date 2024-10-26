@@ -5,3 +5,5 @@ __pycache__/
 /data/*
 /archive/*
 .venv/*
+/static/img/qrcodes/*
+/tests/qr_codes/*
