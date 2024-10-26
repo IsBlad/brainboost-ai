@@ -28,17 +28,18 @@ def add_words():
     count = request.args.get('count', 1, type=int)
 
     if request.method == 'POST':
-        list_name = request.form.get('list_name', '')  # Retrieve list_name from form data
+        # Retrieve list_name and words from form data
+        list_name = request.form.get('list_name', '')
         words = request.form.getlist('word')
         
         if words:
             try:
+                # Generate definitions for the words and write to {list_name}.csv
                 definitions = openai_client.generate_definitions(words)
                 csv_handler.write_csv(list_name, definitions)
                 
-                return render_template('vocabularylist/reviewdefinitions.html', 
-                                       word_list=csv_handler.read_csv(list_name),
-                                       list_name=list_name)
+                return redirect(url_for('review_definitions', list=list_name))
+
             except Exception as e:
                 return jsonify({'error': str(e)}), 400
         else:

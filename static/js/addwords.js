@@ -85,38 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-
-    // Event listener for form submission
+// Event listener for form submission
     wordForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-        console.log('Form submitted');
-
-        if (validateWords()) {
-            const formData = new FormData(this);
-
-            fetch(this.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(data => {
-                        throw new Error(data.error || 'Unknown error occurred');
-                    });
-                }
-                return response.text();
-            })
-            .then(html => {
-                // Replace the current page content with the new HTML
-                document.body.innerHTML = html;
-            })
-            .catch(error => {
-                // Display the error message to the user
-                const errorDiv = document.createElement('div');
-                errorDiv.textContent = error.message;
-                errorDiv.classList.add('error');
-                this.insertBefore(errorDiv, this.firstChild);
-            });
+        // Only prevent default if validation fails
+        if (!validateWords()) {
+            event.preventDefault();
+            return;
         }
     });
 });
