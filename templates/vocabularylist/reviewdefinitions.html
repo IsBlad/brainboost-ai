@@ -15,7 +15,13 @@
         </div>
         <nav>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('lists') }}">My Lists</a>
+            <div class="dropdown">
+              <a href="#" class="dropbtn">My Lists</a>
+              <div class="dropdown-content">
+                  <a href="templates/vocabularylist/listcreate.html">Create list</a>
+                  <a href="templates/vocabularylist/lists.html">View lists</a>
+              </div>
+          </div>
             <button id="login-btn" class="login-btn btn">Login</button>
         </nav>
         <!-- Hamburger icon -->
@@ -58,6 +64,19 @@
                   <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
                 </button>
               </div>
+          </div>
+          <!-- Regenerate Modal -->
+          <div id="regenModal" class="modal">
+            <div class="modal-content">
+              <form class="regenerate">
+                <h3>How should it be different?</h3>
+                <input type="text" class="regenInput" placeholder="E.g. I want the verb, not the noun.">
+                <div class="buttons">
+                  <button class="btn regenBtn">Regenerate</button>
+                  <button type="button" class="btn cancel">Cancel</button>
+                </div>
+              </form>
+            </div>
           </div>
           <!-- Login Modal -->
           <div id="loginModal" class="modal">

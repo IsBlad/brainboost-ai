@@ -849,3 +849,76 @@ h1 {
         max-width: 400px;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Dropdown container styling */
+.dropdown {
+  position: relative;
+}
+
+/* Dropdown button styling */
+.dropbtn {
+  padding: 10px 15px; /* Adjust padding to match your nav links */
+  color: #333; /* Text color */
+  background-color: transparent; /* No background for the button */
+  border: none;
+  cursor: pointer;
+  font-size: 16px; /* Match font size */
+}
+
+/* Dropdown content styling */
+.dropdown-content {
+  display: none; /* Hide dropdown content by default */
+  position: absolute; /* Position it below the My Lists link */
+  left: 0; /* Aligns to the left */
+  top: 100%; /* Places it right below the My Lists link */
+  background-color: #fff; /* Dropdown background color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Adds shadow for depth */
+  z-index: 1000; /* Ensures it appears above other elements */
+  min-width: 150px; /* Minimum width for the dropdown */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Dropdown item styling */
+.dropdown-content a {
+  padding: 10px 15px; /* Padding around the links */
+  color: #333; /* Text color for links */
+  text-decoration: none; /* No underline */
+  display: block; /* Make each link a block element */
+}
+
+/* Change color of dropdown items on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1; /* Light background on hover */
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+  display: block; /* Display dropdown content on hover */
+}
+
+/* Optional: Add transition for a smoother dropdown */
+.dropdown-content {
+  transition: all 0.3s ease; /* Smooth transition */
+  left: 0; /* Aligns the dropdown to the left of the button */
+}
+
+
+.editable-highlight {
+  background-color: #f0f8ff; /* Light blue highlight */
+  border: 1px dashed #aaa; /* Dashed border for edit mode */
+}
