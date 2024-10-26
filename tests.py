@@ -1,7 +1,11 @@
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 from qr_code_generator import QRCodeGenerator
-from config.constants import BASE_URL, DATA_DIR
+from config.constants import BASE_URL, DATA_DIR, TESTS_DIR
+import os
+import base64
+from PIL import Image
+import io
 
 def main():
     '''
@@ -120,31 +124,6 @@ def test_count_csv_rows(filename="test_definitions"):
         print(f"An error occurred: {str(e)}")
     print()
 
-### QR Code Generator Tests ###
-qr_generator = QRCodeGenerator()
-
-def test_generate_qr_code(activity="WordsUp", list_name="Animals"):
-    
-    '''
-    Tests the generate_qr_code method. 
-    
-    Generates a QR code for the given activity and list name (default: WordsUp, Animals).
-
-    QR code is saved to {QR_CODE_DIR}/{activity}_{list_name}.png.
-    The QR code links to {BASE_URL}/gamestart?activity={activity}&list={list_name}.
-    '''
-    
-    print_test_header("QR Code Generator: Testing generate_qr_code")
-    
-    try:
-        result = qr_generator.generate_qr_code(activity, list_name)
-        
-        print(f"QR code generated and saved to: {result}")
-        print(f"Scan the QR code to verify it leads to: {BASE_URL}/gamestart?activity={activity}&list={list_name}")
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
-    print()
-
 def test_delete_csv(filename="test_write"):
     '''
     Tests the delete_csv method. 
@@ -161,6 +140,48 @@ def test_delete_csv(filename="test_write"):
         print(f"An error occurred: {str(e)}")
     print()
 
+### QR Code Generator Tests ###
+qr_generator = QRCodeGenerator()
+
+def test_generate_qr_code(activity="WordsUp", list_name="Animals"):
+    '''
+    Tests the generate_qr_code method. 
+
+    Generates a QR code for the given activity and list name (default: WordsUp, Animals).
+    Saves the QR code as a PNG file in the {TESTS_DIR}/qr_codes directory for verification.
+
+    The QR code links to {BASE_URL}/gamestart?activity={activity}&list={list_name}.
+    '''
+
+    print_test_header("QR Code Generator: Testing generate_qr_code")
+    
+    try:
+        # Generate the QR code
+        qr_code_bytes = qr_generator.generate_qr_code(activity, list_name)
+        
+        # Convert bytes to an image
+        image = Image.open(io.BytesIO(qr_code_bytes))
+        
+        # Create a directory for test QR codes if it doesn't exist
+        qr_codes_dir = os.path.join(TESTS_DIR, "qr_codes")
+        os.makedirs(qr_codes_dir, exist_ok=True)
+        
+        # Save the image
+        filename = f"{activity}_{list_name}.png"
+        filepath = os.path.join(qr_codes_dir, filename)
+        image.save(filepath)
+        
+        print(f"QR code generated successfully.")
+        print(f"QR code saved to: {filepath}")
+        print(f"Image size: {image.size}")
+        print(f"The QR code should link to: {BASE_URL}/gamestart?activity={activity}&list={list_name}")
+        print("Please scan the QR code to verify its contents.")
+        
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+    print()
+
+# Helper Functions
 def print_test_header(test_title):
     '''
     Prints a formatted header for a test.

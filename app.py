@@ -3,6 +3,7 @@ from config import constants
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 from qr_code_generator import QRCodeGenerator
+import base64
 
 # Initialise the Flask app
 app = Flask(__name__)
@@ -14,6 +15,7 @@ app.config.from_object(constants)
 openai_client = OpenAIClient()
 csv_handler = CSVHandler()
 qr_code_generator = QRCodeGenerator()
+
 # Route for the homepage
 @app.route('/')
 def index():
@@ -75,12 +77,19 @@ def review_definitions():
         return redirect(url_for('lists'))
 
 # Route for displaying QR Code
-@app.route('/qrcode')
+@app.route('/qrcode/')
 def qr_code():
-    list_name = request.args.get('list', '')
     activity = request.args.get('activity', '')
-    qr_code = qr_code_generator.generate_qr_code(list_name, activity)
-    return render_template('wordsup/qrcode.html', qr_code=qr_code)
+    list_name = request.args.get('list', '')
+    
+    # Generate the QR code
+    qr_code_bytes = qr_code_generator.generate_qr_code(activity, list_name)
+    
+    # Convert bytes to base64
+    encoded_string = base64.b64encode(qr_code_bytes).decode('utf-8')
+    
+    # Pass the base64 encoded image to the template
+    return render_template('wordsup/qrcode.html', qr_code=encoded_string)
 
 # Route for starting a game
 @app.route('/gamestart')
