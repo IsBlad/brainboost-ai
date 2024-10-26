@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from config import constants
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
+from qr_code_generator import QRCodeGenerator
 
 # Initialise the Flask app
 app = Flask(__name__)
@@ -9,10 +10,10 @@ app = Flask(__name__)
 # Load configuration from settings.py
 app.config.from_object(constants)
 
-# Initialise OpenAIClient and CSVHandler
+# Initialise OpenAIClient, CSVHandler, and QRCodeGenerator
 openai_client = OpenAIClient()
 csv_handler = CSVHandler()
-
+qr_code_generator = QRCodeGenerator()
 # Route for the homepage
 @app.route('/')
 def index():
