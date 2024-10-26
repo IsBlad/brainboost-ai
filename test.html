@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Brainboost AI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="static/css/css-main.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+    </head>
+    <header class="global-header" id="top-nav">
+      <div class="logo">
+          <img src="statictemplates/vocabularylist/lists.html/img/Brainboost Logo.jpg" alt="Website Logo">
+      </div>
+      <nav>
+          <a href="templates/index.html">Home</a>
+          <div class="dropdown">
+              <a href="#" class="dropbtn">My Lists</a>
+              <div class="dropdown-content">
+                  <a href="templates/vocabularylist/listcreate.html">Create list</a>
+                  <a href="templates/vocabularylist/lists.html">View lists</a>
+              </div>
+          </div>
+          <button id="login-btn" class="login-btn btn">Login</button>
+      </nav>
+      <!-- Hamburger icon -->
+      <div class="hamburger-menu" id="hamburger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+      </div>
+    </header>
+      <body>
+        <main class="start-page">
+            <div class="container def">
+                <!-- First Word Box -->
+                <div class="definition-box">
+                  <div class="word-header">
+                    <h3>Dog</h3>
+                    <div class="buttons">
+                      <button class="btn regenerate">Regenerate</button>
+                      <button class="btn edit">Edit</button>
+                    </div>
+                  </div>
+                  <fieldset class="def-box" role="presentation">
+                    <legend>Definition</legend>
+                    <p class="definition" data-editable="false">
+                        A common animal with four legs, especially kept by people as a pet or to hunt or guard things.
+                      </p>
+                  </fieldset>
+                  <fieldset class="example-box" role="presentation">
+                    <legend>Example</legend>
+                    <p class="example" data-editable="false">I grabbed the dog by the collar and dragged it out of the room.</p>
+                    <p class="example" data-editable="false">A dog lay under the table, gnawing on a bone.</p>
+                    <p class="example" data-editable="false">Steve's gone out to walk the dogs.</p>
+                  </fieldset>
+                </div>
+            
+                <!-- Additional Word Boxes -->
+                <div class="definition-box">
+                  <div class="word-header">
+                    <h3>Cat</h3>
+                    <div class="buttons">
+                      <button class="btn regenerate">Regenerate</button>
+                      <button class="btn edit">Edit</button>
+                    </div>
+                  </div>
+                    <fieldset class="def-box" role="presentation">
+                        <legend>Definition</legend>
+                        <p class="definition" data-editable="false">
+                        A small animal with fur, four legs, a tail, and claws, usually kept as a pet or for catching mice.
+                        </p>
+                    </fieldset>
+                    <fieldset class="example-box" role="presentation">
+                        <legend>Example</legend>
+                        <p class="example" data-editable="false">My cat likes dozing in front of the fire.</p>
+                        <p class="example" data-editable="false">I usually feed the neighbour's cat while she's away.</p>
+                    </fieldset>
+                </div>
+            
+                <!-- Third Word Box -->
+                <div class="definition-box">
+                  <div class="word-header">
+                    <h3>Cow</h3>
+                    <div class="buttons">
+                      <button class="btn regenerate">Regenerate</button>
+                      <button class="btn edit">Edit</button>
+                    </div>
+                  </div>
+                  <fieldset class="def-box" role="presentation">
+                    <legend>Definition</legend>
+                    <p class="definition" data-editable="false">
+                        A large female farm animal kept to produce meat and milk.
+                      </p>
+                  </fieldset>
+                  <fieldset class="example-box" role="presentation">
+                    <legend>Example</legend>
+                    <p class="example" data-editable="false">Most of these ranchers own only a bull and about twenty cows.</p>
+                  </fieldset>
+                </div>
+            
+                <!-- Save and Cancel Buttons -->
+                <div class="actions">
+                  <a id="save" href="templates/vocabularylist/lists.html">Save</a>
+                  <a id="cancel" href="templates/vocabularylist/listcreate.html">Cancel</a>
+                </div>
+              </div>
+              <!-- Regenerate Modal -->
+              <div id="regenModal" class="modal">
+                <div class="modal-content">
+                  <form class="regenerate">
+                    <h3>How should it be different?</h3>
+                    <input type="text" class="regenInput" placeholder="E.g. I want the verb, not the noun.">
+                    <div class="buttons">
+                      <button class="btn regenBtn">Regenerate</button>
+                      <button type="button" class="btn cancel">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          <!-- Login Modal -->
+          <div id="loginModal" class="modal">
+            <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm" method="post">
+                <label for="username">Username:</label>
+                <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
+                <label for="password">Password:</label>
+                <input type="password" placeholder="password" id="password" name="password" required><br>
+                <button class="submit-btn btn" type="submit">Submit</button>
+            </form>
+            </div>
+          </div>
+      </main>
+      <footer>
+          &copy; 2024 Brainbooost AI all rights reserved
+      </footer>
+      <script src="static/js/script.js"></script>
+      <script src="static/js/worddefinition.js"></script>
+      </body>
+</html>
