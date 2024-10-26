@@ -1,7 +1,7 @@
 from openai_client import OpenAIClient
 from csv_handler import CSVHandler
 from qr_code_generator import QRCodeGenerator
-from config.constants import BASE_URL
+from config.constants import BASE_URL, DATA_DIR
 
 def main():
     '''
@@ -86,7 +86,7 @@ def test_read_csv(filename="test_definitions"):
     print_test_header("CSV Handler: Testing read_csv")
     
     try:
-        print(f"CSV content: {csv_handler.read_csv(filename)}")
+        print(f"CSV content of {filename}.csv: {csv_handler.read_csv(filename)}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
     print()
@@ -101,7 +101,7 @@ def test_get_wordlists_and_counts():
     print_test_header("CSV Handler: Testing get_wordlists_and_counts")
     
     try:
-        print(f"Wordlists and counts: {csv_handler.get_wordlists_and_counts()}")
+        print(f"Wordlists and counts of all CSV files in {DATA_DIR}: {csv_handler.get_wordlists_and_counts()}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
     print()
@@ -115,7 +115,7 @@ def test_count_csv_rows(filename="test_definitions"):
     
     print_test_header("CSV Handler: Testing count_csv_rows")
     try:
-        print(f"CSV row count: {csv_handler.count_csv_rows(filename)}")
+        print(f"CSV row count of {filename}.csv: {csv_handler.count_csv_rows(filename)}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
     print()
@@ -145,11 +145,11 @@ def test_generate_qr_code(activity="WordsUp", list_name="Animals"):
         print(f"An error occurred: {str(e)}")
     print()
 
-def test_delete_csv(filename="test_write_csv"):
+def test_delete_csv(filename="test_write"):
     '''
     Tests the delete_csv method. 
     
-    Deletes the given CSV file from the {DATA_DIR} directory (default: test_write_csv).
+    Deletes the given CSV file from the {DATA_DIR} directory (default: test_write).
     '''
     
     print_test_header("CSV Handler: Testing delete_csv")
