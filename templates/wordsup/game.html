@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Words Up - Game</title>
+    <link href="static/css/game.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Game Page -->
+    <div class="container">
+        <div class="button left" onclick="nextWord('pass')">Pass</div>
+        <div class="word">
+            <div id="wordText">Starfish</div>
+            <div class="timer" id="timer">1:00</div>
+        </div>
+        <div class="button right" onclick="nextWord('correct')">Correct</div>
+    </div>
+    <!-- End Page -->
+    <div class="end-page" id="endPage">
+        <div class="end-score" id="finalScore">Score: 0</div>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+    <script src="static/js/game.js"></script>
+</body>
+</html>
