@@ -78,7 +78,7 @@ def review_definitions():
         return redirect(url_for('lists'))
 
 # Route for displaying QR Code
-@app.route('/qrcode/')
+@app.route('/qrcode')
 def qr_code():
     activity = request.args.get('activity', '')
     list_name = request.args.get('list', '')
