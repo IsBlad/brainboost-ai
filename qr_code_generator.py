@@ -13,7 +13,7 @@ class QRCodeGenerator:
         Returns the QR code as bytes
         '''
 
-        url = f"{BASE_URL}/game?activity={activity}&list={list_name}"
+        url = f"{BASE_URL}/gamestart?activity={activity}&list={list_name}"
         
         qr = qrcode.QRCode(
             version=1,

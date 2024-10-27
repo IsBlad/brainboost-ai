@@ -13,7 +13,7 @@
             <div class="card-buttons">
                 <button class="btn edit-button" onclick="editList('{{ list_name }}')">Edit</button>
                 <button class="btn games-button">
-                    <a href="{{ url_for('game_start', activity='wordsup', list=list_name) }}">Games</a>
+                    <a href="{{ url_for('qr_code', activity='wordsup', list=list_name) }}">Games</a>
                 </button>
             </div>
         </div>

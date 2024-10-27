@@ -150,7 +150,7 @@ def test_generate_qr_code(activity="WordsUp", list_name="Animals"):
     Generates a QR code for the given activity and list name (default: WordsUp, Animals).
     Saves the QR code as a PNG file in the {TESTS_DIR}/qr_codes directory for verification.
 
-    The QR code links to {BASE_URL}/gamestart?activity={activity}&list={list_name}.
+    The QR code links to {BASE_URL}/game?activity={activity}&list={list_name}.
     '''
 
     print_test_header("QR Code Generator: Testing generate_qr_code")
