@@ -153,7 +153,7 @@ nav a:hover {
 .text-window {
     max-width: 700px;
     margin-bottom: 10%;
-    background-color: rgba(182, 214, 224, 0.9); /* White background with slight transparency */
+    background-color: rgba(182, 214, 224, 1); /* White background with slight transparency */
     padding: 60px 40px;
     border-radius: 10px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3); /* Added shadow for depth */
