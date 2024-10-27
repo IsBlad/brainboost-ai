@@ -19,7 +19,9 @@
     <!-- End Page -->
     <div class="end-page" id="endPage">
         <div class="end-score" id="finalScore">Score: 0</div>
-        <button onclick="restartGame()">Play Again</button>
+        <ul id="correctWords"></ul> <!-- List for correct words -->
+        <ul id="passedWords"></ul> <!-- List for passed words -->
+        <button class="btn" onclick="restartGame()">Play Again</button>
     </div>
     <script>
         // Pass the words from Flask to JavaScript
