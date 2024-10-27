@@ -4,6 +4,10 @@ let timeRemaining = 60;
 let timerInterval;
 let score = 0;
 
+// Arrays to store words based on user actions
+const correctWords = [];
+const passedWords = [];
+
 // Start the game and initialize the game page
 function startGame() {
     // Show game page and hide end page
@@ -14,11 +18,15 @@ function startGame() {
     timeRemaining = 60;
     score = 0;
     currentIndex = 0;
-    
+
+    // Clear previous words
+    correctWords.length = 0;
+    passedWords.length = 0;
+
     // Display the first word and reset the timer display
     document.getElementById("wordText").innerText = words[currentIndex];
     document.getElementById("timer").innerText = "1:00";
-    
+
     // Start the countdown timer
     timerInterval = setInterval(updateTimer, 1000);
 }
@@ -27,10 +35,20 @@ function startGame() {
 function nextWord(action) {
     if (action === 'correct') {
         score++; // Increment score if "Correct" is clicked
+        correctWords.push(words[currentIndex]); // Store the correct word
+    } else if (action === 'pass') {
+        passedWords.push(words[currentIndex]); // Store the passed word
     }
+
     // Move to the next word in the array
     currentIndex = (currentIndex + 1) % words.length;
-    document.getElementById("wordText").innerText = words[currentIndex];
+
+    // Check if we've gone through all the words
+    if (currentIndex === 0) {
+        endGame(); // End the game if all words have been displayed
+    } else {
+        document.getElementById("wordText").innerText = words[currentIndex]; // Display next word
+    }
 }
 
 // Function to update the timer every second
@@ -39,7 +57,7 @@ function updateTimer() {
     let minutes = Math.floor(timeRemaining / 60);
     let seconds = timeRemaining % 60;
     document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    
+
     if (timeRemaining <= 0) {
         endGame(); // End the game when time runs out
     }
@@ -50,9 +68,38 @@ function endGame() {
     clearInterval(timerInterval); // Stop the timer
     document.querySelector(".container").style.display = "none"; // Hide game container
     document.getElementById("endPage").style.display = "flex"; // Show end page
-    
+
     // Display the final score
     document.getElementById("finalScore").innerText = `Score: ${score}`;
+
+    // Display the words in the end page
+    displayResults();
+}
+
+// Function to display the results on the end page
+function displayResults() {
+    const correctList = document.getElementById("correctWords");
+    const passedList = document.getElementById("passedWords");
+
+    // Clear previous results
+    correctList.innerHTML = '';
+    passedList.innerHTML = '';
+
+    // Create list items for correct words
+    correctWords.forEach(word => {
+        const li = document.createElement("li");
+        li.innerText = word;
+        li.style.color = "green"; // Set color for correct words
+        correctList.appendChild(li);
+    });
+
+    // Create list items for passed words
+    passedWords.forEach(word => {
+        const li = document.createElement("li");
+        li.innerText = word;
+        li.style.color = "red"; // Set color for passed words
+        passedList.appendChild(li);
+    });
 }
 
 // Function to restart the game
