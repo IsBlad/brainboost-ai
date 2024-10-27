@@ -16,12 +16,12 @@
       <nav>
           <a href="templates/index.html">Home</a>
           <div class="dropdown">
-              <a href="#" class="dropbtn">My Lists</a>
-              <div class="dropdown-content">
-                  <a href="templates/vocabularylist/listcreate.html">Create list</a>
-                  <a href="templates/vocabularylist/lists.html">View lists</a>
-              </div>
-          </div>
+            <a href="#" class="dropbtn">My Lists</a>
+            <div class="dropdown-content">
+                <a href="{{ url_for('list_create') }}">Create list</a>
+                <a href="{{ url_for('lists') }}">View lists</a>
+            </div>
+        </div>
           <button id="login-btn" class="login-btn btn">Login</button>
       </nav>
       <!-- Hamburger icon -->
