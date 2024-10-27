@@ -1,5 +1,4 @@
 // List of words for the game
-const words = ["Starfish", "Dolphin", "Octopus", "Whale", "Shark", "Crab", "Jellyfish", "Seahorse"];
 let currentIndex = 0;
 let timeRemaining = 60;
 let timerInterval;
