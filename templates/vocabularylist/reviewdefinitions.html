@@ -1,102 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Brainboost AI</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="static/css/css-main.css" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
-    </head>
-    <header class="global-header" id="top-nav">
-        <div class="logo">
-            <img src="{{ url_for('static', filename='img/Brainboost Logo.jpg') }}" alt="Website Logo">
-        </div>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <div class="dropdown">
-              <a href="#" class="dropbtn">My Lists</a>
-              <div class="dropdown-content">
-                  <a href="templates/vocabularylist/listcreate.html">Create list</a>
-                  <a href="templates/vocabularylist/lists.html">View lists</a>
-              </div>
-          </div>
-            <button id="login-btn" class="login-btn btn">Login</button>
-        </nav>
-        <!-- Hamburger icon -->
-        <div class="hamburger-menu" id="hamburger-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
-    <body>
-      <main class="start-page">
-          <div class="container def">
-            <!-- Header with List Name -->
-            <h2 id="listName">{{ list_name }}</h2>
-                {% for word in word_list %}
-              <div class="definition-box">
-                <div class="word-header">
-                  <h3>{{ word['word'] }}</h3>
-                  <div class="buttons">
-                    <button class="btn regenerate">Regenerate</button>
-                    <button class="btn edit">Edit</button>
-                  </div>
-                </div>
-                <fieldset class="def-box" role="presentation">
-                  <legend>Definition</legend>
-                  <p class="definition">{{ word['definition'] }}</p>
-                </fieldset>
-                <fieldset class="example-box" role="presentation">
-                  <legend>Example Sentence</legend>
-                  <p class="example">{{ word['example_sentence'] }}</p>
-                </fieldset>
-              </div>
-              {% endfor %}
-              <!-- Save and Cancel Buttons -->
-              <div class="actions">
-                <button class="btn save">
-                  <a href="{{ url_for('lists') }}">Save</a>
-                </button>
-                <button class="btn cancel">
-                  <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
-                </button>
-              </div>
-          </div>
-          <!-- Regenerate Modal -->
-          <div id="regenModal" class="modal">
-            <div class="modal-content">
-              <form class="regenerate">
-                <h3>How should it be different?</h3>
-                <input type="text" class="regenInput" placeholder="E.g. I want the verb, not the noun.">
-                <div class="buttons">
-                  <button class="btn regenBtn">Regenerate</button>
-                  <button type="button" class="btn cancel">Cancel</button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <!-- Login Modal -->
-          <div id="loginModal" class="modal">
-            <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Login</h2>
-            <form id="loginForm" method="post">
-                <label for="username">Username:</label>
-                <input type="text" placeholder="name@email.com" id="username" name="username" required><br>
-                <label for="password">Password:</label>
-                <input type="password" placeholder="password" id="password" name="password" required><br>
-                <button class="submit-btn btn" type="submit">Submit</button>
-            </form>
+{% extends "layout.html" %}
+
+{% block title %}Brainboost AI - Review Definitions{% endblock %}
+
+{% block content %}
+<div class="container def">
+    <h2 id="listName">{{ list_name }}</h2>
+    {% for word in word_list %}
+    <div class="definition-box">
+        <div class="word-header">
+            <h3>{{ word['word'] }}</h3>
+            <div class="buttons">
+                <button class="btn regenerate">Regenerate</button>
+                <button class="btn edit">Edit</button>
             </div>
         </div>
-      </main>
-      <footer>
-          &copy; 2024 Brainbooost AI all rights reserved
-      </footer>
-      <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-      <script src="{{ url_for('static', filename='js/worddefinition.js') }}" defer></script>
-    </body>
-</html>
+        <fieldset class="def-box" role="presentation">
+            <legend>Definition</legend>
+            <p class="definition">{{ word['definition'] }}</p>
+        </fieldset>
+        <fieldset class="example-box" role="presentation">
+            <legend>Example Sentence</legend>
+            <p class="example">{{ word['example_sentence'] }}</p>
+        </fieldset>
+    </div>
+    {% endfor %}
+    <div class="actions">
+        <button class="btn save">
+            <a href="{{ url_for('lists') }}">Save</a>
+        </button>
+        <button class="btn cancel">
+            <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
+        </button>
+    </div>
+</div>
+
+<!-- Regenerate Modal -->
+<div id="regenModal" class="modal">
+    <div class="modal-content">
+        <form class="regenerate">
+            <h3>How should it be different?</h3>
+            <input type="text" class="regenInput" placeholder="E.g. I want the verb, not the noun.">
+            <div class="buttons">
+                <button class="btn regenBtn">Regenerate</button>
+                <button type="button" class="btn cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/worddefinition.js') }}"></script>
+{% endblock %}
