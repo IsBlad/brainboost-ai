@@ -5,14 +5,37 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4d7c6; /* light background color */
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fbf7f5;
+    font-family: Arial, sans-serif;
+    color: #2b2b2b;
 }
+
+/* Button Styling */
+.btn {
+    padding: 6px 22px;
+    background-color: #267CAE; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #165497;
+}
+
+
+
+
+
+
 
 h1 {
     color: #3f3b96;
@@ -114,18 +137,6 @@ b {
 
 
 
-
-
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #4a90e2;
-    font-family: Arial, sans-serif;
-    color: #2b2b2b;
-}
 
 .container {
     display: flex;
