@@ -11,8 +11,8 @@
           <div class="word-header">
               <h3>{{ word['word'] }}</h3>
               <div class="buttons">
-                  <button class="btn regenerate">Regenerate</button>
-                  <button class="btn edit">Edit</button>
+                  <button type="button" class="btn regenerate">Regenerate</button>
+                  <button type="button" class="btn edit">Edit</button>
               </div>
           </div>
           <fieldset class="def-box" role="presentation">
@@ -35,7 +35,7 @@
           <button type="submit" class="btn save">
               <a href="{{ url_for('lists') }}">Save</a>
           </button>
-          <button class="btn cancel">
+          <button type="button" class="btn cancel">
               <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
           </button>
       </div>
@@ -48,7 +48,7 @@
             <h3>How should it be different?</h3>
             <input type="text" class="regenInput" placeholder="E.g. I want the verb, not the noun.">
             <div class="buttons">
-                <button class="btn regenBtn">Regenerate</button>
+                <button type="button" class="btn regenBtn">Regenerate</button>
                 <button type="button" class="btn cancel">Cancel</button>
             </div>
         </form>
