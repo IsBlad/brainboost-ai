@@ -97,6 +97,19 @@ def qr_code():
 def game_start():
     return render_template('wordsup/gamestart.html')
 
+# Route for starting a game
+@app.route('/game')
+def game():
+    list_name = request.args.get('list', '')
+
+    # Read the word list from the CSV file
+    word_list = csv_handler.read_csv(list_name)
+
+    # Extract only the words from the word list
+    words = [word['word'] for word in word_list]
+
+    return render_template('wordsup/game.html', list_name=list_name, words=words)
+
 # Run the application
 if __name__ == '__main__':
     app.run(debug=True)

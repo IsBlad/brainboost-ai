@@ -21,6 +21,10 @@
         <div class="end-score" id="finalScore">Score: 0</div>
         <button onclick="restartGame()">Play Again</button>
     </div>
+    <script>
+        // Pass the words from Flask to JavaScript
+        const words = {{ words|tojson|safe }};
+    </script>
     <script src="static/js/game.js"></script>
 </body>
 </html>
