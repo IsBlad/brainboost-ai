@@ -3,37 +3,44 @@
 {% block title %}Brainboost AI - Review Definitions{% endblock %}
 
 {% block content %}
-<div class="container def">
-    <h2 id="listName">{{ list_name }}</h2>
-    {% for word in word_list %}
-    <div class="definition-box">
-        <div class="word-header">
-            <h3>{{ word['word'] }}</h3>
-            <div class="buttons">
-                <button class="btn regenerate">Regenerate</button>
-                <button class="btn edit">Edit</button>
-            </div>
-        </div>
-        <fieldset class="def-box" role="presentation">
-            <legend>Definition</legend>
-            <p class="definition">{{ word['definition'] }}</p>
-        </fieldset>
-        <fieldset class="example-box" role="presentation">
-            <legend>Example Sentence</legend>
-            <p class="example">{{ word['example_sentence'] }}</p>
-        </fieldset>
-    </div>
-    {% endfor %}
-    <div class="actions">
-        <button class="btn save">
-            <a href="{{ url_for('lists') }}">Save</a>
-        </button>
-        <button class="btn cancel">
-            <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
-        </button>
-    </div>
-</div>
-
+<form action="{{ url_for('lists') }}" method="POST" id="saveForm">
+  <div class="container def">
+      <h2 id="listName">{{ list_name }}</h2>
+      {% for word in word_list %}
+      <div class="definition-box">
+          <div class="word-header">
+              <h3>{{ word['word'] }}</h3>
+              <div class="buttons">
+                  <button class="btn regenerate">Regenerate</button>
+                  <button class="btn edit">Edit</button>
+              </div>
+          </div>
+          <fieldset class="def-box" role="presentation">
+              <legend>Definition</legend>
+              <p class="definition">{{ word['definition'] }}</p>
+              <!-- Hidden input to store updated definition -->
+              <input type="hidden" name="definitions[]" value="{{ word['definition'] }}">
+          </fieldset>
+          <fieldset class="example-box" role="presentation">
+              <legend>Example Sentence</legend>
+              <p class="example">{{ word['example_sentence'] }}</p>
+              <!-- Hidden input to store updated example sentence -->
+              <input type="hidden" name="examples[]" value="{{ word['example_sentence'] }}">
+          </fieldset>
+          <!-- Hidden input for the word itself -->
+          <input type="hidden" name="words[]" value="{{ word['word'] }}">
+      </div>
+      {% endfor %}
+      <div class="actions">
+          <button type="submit" class="btn save">
+              <a href="{{ url_for('lists') }}">Save</a>
+          </button>
+          <button class="btn cancel">
+              <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
+          </button>
+      </div>
+  </div>
+</form>
 <!-- Regenerate Modal -->
 <div id="regenModal" class="modal">
     <div class="modal-content">

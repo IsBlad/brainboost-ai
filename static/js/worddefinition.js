@@ -78,3 +78,11 @@ document.querySelectorAll(".definition-box").forEach(definitionBox => {
       const nav = document.querySelector("nav");
       nav.classList.toggle("nav-active");
   });
+
+  document.getElementById("saveForm").addEventListener("submit", function () {
+    document.querySelectorAll(".definition-box").forEach(box => {
+        // Update hidden input with the current text content
+        box.querySelector("input[name='definitions[]']").value = box.querySelector(".definition").textContent;
+        box.querySelector("input[name='examples[]']").value = box.querySelector(".example").textContent;
+    });
+});
