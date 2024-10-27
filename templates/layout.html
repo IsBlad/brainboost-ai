@@ -17,7 +17,13 @@
         </div>
         <nav>
             <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('lists') }}">My Lists</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">My Lists</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('list_create') }}">Create list</a>
+                    <a href="{{ url_for('lists') }}">View lists</a>
+                </div>
+            </div>
             <button id="login-btn" class="login-btn btn">Login</button>
         </nav>
         <!-- Hamburger icon -->
