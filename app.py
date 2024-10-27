@@ -77,17 +77,6 @@ def review_definitions():
         # If no list name is provided, redirect to the lists page
         return redirect(url_for('lists'))
 
-# Route for starting a game
-@app.route('/gamestart')
-def game_start():
-    activity = request.args.get('activity', '')
-    list_name = request.args.get('list', '')
-
-    if activity == 'wordsup':
-        return render_template('wordsup/gamestart.html', activity=activity, list=list_name)
-    else:
-        return redirect(url_for('index'))
-
 # Route for displaying QR Code
 @app.route('/qrcode')
 def qr_code():
@@ -102,6 +91,16 @@ def qr_code():
     
     # Pass the base64 encoded image to the template
     return render_template('wordsup/qrcode.html', activity=activity, list=list_name, qr_code=encoded_string)
+# Route for starting a game
+@app.route('/gamestart')
+def game_start():
+    activity = request.args.get('activity', '')
+    list_name = request.args.get('list', '')
+
+    if activity == 'wordsup':
+        return render_template('wordsup/gamestart.html', activity=activity, list=list_name)
+    else:
+        return redirect(url_for('index'))
 
 # Route for starting a game
 @app.route('/game')
