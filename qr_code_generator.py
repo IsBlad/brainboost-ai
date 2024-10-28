@@ -15,6 +15,7 @@ class QRCodeGenerator:
 
         url = f"{BASE_URL}/gamestart?activity={activity}&list={list_name}"
         
+        # Generate the QR code
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
