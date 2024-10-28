@@ -261,9 +261,10 @@ footer {
 
 /* Form Inputs */
 #loginForm label {
-    display: block;
+    display: inline-block;
+    width: 100px;
     margin: 10px 0 5px;
-    text-align: center;
+    text-align: left;
 }
 
 #loginForm input {
@@ -806,8 +807,20 @@ h1 {
     width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    position: relative;
+    display: inline-block;
+    margin: 10px;
 }
 
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #7c7979;
+  font-size: 18px;
+  font-weight: bold;
+}
 /* Card Heading */
 .card h2 {
     font-size: 1.5rem;

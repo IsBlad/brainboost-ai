@@ -7,7 +7,8 @@
     <h1>My Vocabulary Lists</h1>
     <div class="card-container">
         {% for list_name, count in wordlists_and_counts.items() %}
-        <div class="card">
+        <div class="card" id="card-{{ list_name }}">
+            <span class="close" onclick="deleteCard('{{ list_name }}')">&times;</span>
             <h2>{{ list_name }}</h2>
             <p>{{ count }} words</p>
             <div class="card-buttons">
@@ -27,6 +28,13 @@
 <script>
 function editList(listName) {
     window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
+}
+
+function deleteCard(listName) {
+    const card = document.getElementById(`card-${listName}`);
+    if (card) {
+        card.remove(); // Deletes the specific card element
+    }
 }
 </script>
 {% endblock %}
