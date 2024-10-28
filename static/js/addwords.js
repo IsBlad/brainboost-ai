@@ -87,10 +87,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Event listener for form submission
     wordForm.addEventListener('submit', function(event) {
-        // Only prevent default if validation fails
-        if (!validateWords()) {
-            event.preventDefault();
-            return;
+        event.preventDefault();
+        console.log('Form submitted');
+
+        if (validateWords()) {
+            document.getElementById('loading-overlay').style.display = 'flex';
+            // Actually submit the form
+            this.submit();
         }
     });
 });
