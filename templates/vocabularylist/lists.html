@@ -8,7 +8,12 @@
     <div class="card-container">
         {% for list_name, count in wordlists_and_counts.items() %}
         <div class="card" id="card-{{ list_name }}">
-            <span class="close" onclick="deleteCard('{{ list_name }}')">&times;</span>
+            <!-- Trashcan icon as an inline SVG -->
+            <span class="close" onclick="deleteCard('{{ list_name }}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" viewBox="0 0 24 24">
+                    <path d="M3 6h18v2H3V6zm2 4h14v12H5V10zm5 2v8H8v-8h2zm4 0v8h-2v-8h2zm4 0v8h-2v-8h2zm-7-8V2h4v2h5v2H5V4h5z"/>
+                </svg>
+            </span>
             <h2>{{ list_name }}</h2>
             <p>{{ count }} words</p>
             <div class="card-buttons">
