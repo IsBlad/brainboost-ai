@@ -102,6 +102,15 @@ def review_definitions():
     else:
         # If no list name is provided, redirect to the lists page
         return redirect(url_for('lists'))
+    
+# Route to delete a Vocabulary List
+@app.route('/delete_list/<list_name>', methods=['DELETE'])
+def delete_list(list_name):
+    try:
+        csv_handler.delete_csv(list_name)
+        return jsonify({'success': True}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Route for displaying QR Code
 @app.route('/qrcode')
