@@ -90,7 +90,7 @@ def lists():
 def word_definition():
     return render_template('vocabularylist/worddefinition.html')
 
-# Route to view all Vocabulary Lists
+# Route to review and make edits to a specific Vocabulary List
 @app.route('/reviewdefinitions')
 def review_definitions():
     list_name = request.args.get('list', '')
@@ -126,6 +126,7 @@ def qr_code():
     
     # Pass the base64 encoded image to the template
     return render_template('wordsup/qrcode.html', activity=activity, list=list_name, qr_code=encoded_string)
+
 # Route for starting a game
 @app.route('/gamestart')
 def game_start():
