@@ -8,6 +8,20 @@ let score = 0;
 const correctWords = [];
 const passedWords = [];
 
+function adjustFontSize() {
+    const wordElement = document.querySelector('.word');
+    
+    // Increase this percentage to make text larger
+    const fontSize = Math.max(Math.min(window.innerWidth, window.innerHeight) * 0.1, 30); // 10% of the smallest dimension, minimum font size of 30px
+    wordElement.style.fontSize = `${fontSize}px`;
+}
+
+// Add event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    adjustFontSize(); // Initial fit
+    window.addEventListener('resize', adjustFontSize); // Refit on resize
+});
+
 // Start the game and initialize the game page
 function startGame() {
     // Show game page and hide end page
@@ -29,6 +43,9 @@ function startGame() {
 
     // Start the countdown timer
     timerInterval = setInterval(updateTimer, 1000);
+
+    // Adjust the font size for the first word
+    adjustFontSize();
 }
 
 // Function to change to the next word
@@ -108,7 +125,10 @@ function restartGame() {
 }
 
 // Initialize the game when the page loads
-window.onload = startGame;
+window.onload = function() {
+    startGame();       // Start the game
+    adjustFontSize();  // Adjust font size on load
+};
 
 function checkOrientation() {
     if (window.innerHeight > window.innerWidth) {
@@ -132,5 +152,4 @@ function adjustFontSize() {
     wordElement.style.fontSize = `${fontSize}px`;
 }
 
-window.onload = adjustFontSize;
 window.onresize = adjustFontSize;

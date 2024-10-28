@@ -129,16 +129,11 @@ a {
 
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
     background-color: #b0d4e6;
-    border-radius: 15px;
-    padding: 40px;
-    width: 700px;
-    text-align: center;
-    position: relative;
 }
 
 .end-page {
@@ -192,6 +187,20 @@ a {
     margin-top: 10px;
 }
 
+/* End page styles */
+.end-page {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #bedae8;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    z-index: 2000;
+}
+
 .end-score {
     font-size: 2em;
     font-weight: bold;
@@ -201,27 +210,48 @@ a {
 
 ul {
     list-style-type: none; /* Removes bullet points */
+    padding: 0;
 }
 
 li {
     padding: 5px;
 }
 
-/* Add a class to display a message for orientation change */
-.rotate-notice {
+/* Update/add these styles */
+#rotate-notice {
+    display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    display: none; /* Hidden by default */
-    z-index: 1000; /* Ensure it's on top of other elements */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fdf6f2;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+#rotate-notice p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.rotate-icon {
+    width: 48px;
+    height: 48px;
+    margin-top: 20px;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
 }
 
 /* Landscape layout */
-@media (orientation: landscape) and (max-height: 768px) {
+@media (orientation: landscape) {
     html, body {
         height: 100%;
         margin: 0;
@@ -230,12 +260,8 @@ li {
     
     .container {
         display: flex;
-        flex-direction: row; /* Horizontally align elements */
         justify-content: center;
         align-items: center;
-        width: 100vw;
-        height: 100vh;
-        padding: 0;
     }
     .button.left,
     .button.right {
@@ -261,19 +287,29 @@ li {
         background-color: rgb(230, 106, 106);
     }
     .word {
-        font-size: 8vw; /* Adjust font size relative to viewport width */
-        max-width: 90%;
+        font-size: 8vw;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .timer {
+        font-size: 1em;
+        color: #ffffff;
+        margin-top: 10px;
     }
     /* Hide rotate notice when in landscape */
-    .rotate-notice {
+    #rotate-notice {
         display: none;
     }
 }
 
 /* Portrait layout styles to show notice */
 @media (orientation: portrait) {
-    .rotate-notice {
-        display: block; /* Show the rotate notice */
+    #rotate-notice {
+        display: flex;
+    }
+    .container {
+        display: none;
     }
 }
 
