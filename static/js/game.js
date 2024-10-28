@@ -8,9 +8,18 @@ let score = 0;
 const correctWords = [];
 const passedWords = [];
 
+// Initialize audio elements
+const sound1 = document.getElementById('sound1'); // Correct sound
+const sound2 = document.getElementById('sound2'); // Pass sound
+const sound3 = document.getElementById('sound3'); // Timer sound
+const sound4 = document.getElementById('sound4'); // Game finished sound
+
+// Flag to check if timer sound is playing
+let isTimerSoundPlaying = false;
+
 function adjustFontSize() {
     const wordElement = document.querySelector('.word');
-    
+
     // Increase this percentage to make text larger
     const fontSize = Math.max(Math.min(window.innerWidth, window.innerHeight) * 0.1, 30); // 10% of the smallest dimension, minimum font size of 30px
     wordElement.style.fontSize = `${fontSize}px`;
@@ -53,8 +62,10 @@ function nextWord(action) {
     if (action === 'correct') {
         score++; // Increment score if "Correct" is clicked
         correctWords.push(words[currentIndex]); // Store the correct word
+        sound1.play(); // Play correct sound
     } else if (action === 'pass') {
         passedWords.push(words[currentIndex]); // Store the passed word
+        sound2.play(); // Play pass sound
     }
 
     // Move to the next word in the array
@@ -75,6 +86,13 @@ function updateTimer() {
     let seconds = timeRemaining % 60;
     document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
+    // Play sound3 when there are only 10 seconds left
+    if (timeRemaining === 10 && !isTimerSoundPlaying) {
+        sound3.loop = true; // Set the sound to loop
+        sound3.play(); // Play timer sound
+        isTimerSoundPlaying = true; // Mark the timer sound as playing
+    }
+
     if (timeRemaining <= 0) {
         endGame(); // End the game when time runs out
     }
@@ -83,6 +101,10 @@ function updateTimer() {
 // Function to end the game and show the end page with the score
 function endGame() {
     clearInterval(timerInterval); // Stop the timer
+    sound4.play(); // Play finished sound
+    sound3.pause(); // Stop the timer sound
+    sound3.currentTime = 0; // Reset the timer sound to the beginning
+    isTimerSoundPlaying = false; // Reset the flag
     document.querySelector(".container").style.display = "none"; // Hide game container
     document.getElementById("endPage").style.display = "flex"; // Show end page
 
@@ -145,11 +167,3 @@ window.addEventListener("orientationchange", checkOrientation);
 
 // Call the function on load
 window.onload = checkOrientation;
-
-function adjustFontSize() {
-    const wordElement = document.querySelector('.word');
-    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.08; // 8% of the smallest dimension
-    wordElement.style.fontSize = `${fontSize}px`;
-}
-
-window.onresize = adjustFontSize;

@@ -11,6 +11,11 @@
         <p>Turn me sideways to play!</p>
         <img src="static/img/phone-rotate-landscape.png" class="rotate-icon" alt="Rotate phone icon">
     </div>
+    <!-- Sound elements -->
+    <audio id="sound1" src="{{ url_for('static', filename='sounds/correct.mp3') }}"></audio>
+    <audio id="sound2" src="{{ url_for('static', filename='sounds/pass.mp3') }}"></audio>
+    <audio id="sound3" src="{{ url_for('static', filename='sounds/timer.mp3') }}"></audio>
+    <audio id="sound4" src="{{ url_for('static', filename='sounds/finished.mp3') }}"></audio>
     <!-- Game Page -->
     <div class="container">
         <div class="button right" onclick="nextWord('pass')">Pass</div>
