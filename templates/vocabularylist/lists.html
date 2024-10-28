@@ -35,10 +35,33 @@ function editList(listName) {
     window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
 }
 
+// Function to delete a vocabulary list
 function deleteCard(listName) {
-    const card = document.getElementById(`card-${listName}`);
-    if (card) {
-        card.remove(); // Deletes the specific card element
+    // Confirm deletion with the user
+    if (confirm(`Are you sure you want to delete the list "${listName}"?`)) {
+        fetch(`/delete_list/${listName}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Remove the card element from the DOM if successful
+                const card = document.getElementById(`card-${listName}`);
+                if (card) {
+                    card.remove();
+                }
+                alert(`List "${listName}" has been deleted.`);
+            } else {
+                // Show an error message if deletion failed
+                alert("Failed to delete the list. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        });
     }
 }
 </script>
