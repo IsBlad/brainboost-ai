@@ -8,8 +8,8 @@
         <div class="text-window">
             <h1 class="start-heading">Generate your first word list now!</h1>
             <p>Add your words, get AI-generated definitions and example sentences in seconds.</p>
-            <button class="gen-btn btn">
-                <a href="{{ url_for('list_create') }}">Generate Now</a>
+            <button class="gen-btn btn" onclick="window.location.href='{{ url_for('list_create') }}'">
+                Generate Now
             </button>
         </div>
     </div>

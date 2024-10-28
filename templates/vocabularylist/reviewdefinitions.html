@@ -35,9 +35,9 @@
       {% endfor %}
       <div class="actions">
           <button type="submit" class="btn save">Save</button>
-          <button type="button" class="btn cancel">
-              <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
-          </button>
+          <button type="button" class="btn cancel" onclick="window.location.href='{{ url_for('lists') }}'">
+            Cancel
+        </button>
       </div>
   </div>
 </form>

@@ -817,10 +817,14 @@ h1 {
   top: 10px;
   right: 10px;
   cursor: pointer;
-  color: #7c7979;
   font-size: 18px;
   font-weight: bold;
 }
+
+.close:hover svg {
+  fill: rgb(70, 69, 69); /* Color on hover */
+}
+
 /* Card Heading */
 .card h2 {
     font-size: 1.5rem;
