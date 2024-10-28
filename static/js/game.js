@@ -109,3 +109,28 @@ function restartGame() {
 
 // Initialize the game when the page loads
 window.onload = startGame;
+
+function checkOrientation() {
+    if (window.innerHeight > window.innerWidth) {
+        // Show a warning message to rotate the device
+        document.getElementById("rotate-notice").style.display = "flex"; // Show the notice
+    } else {
+        document.getElementById("rotate-notice").style.display = "none"; // Hide the notice
+    }
+}
+
+// Add event listeners
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+
+// Call the function on load
+window.onload = checkOrientation;
+
+function adjustFontSize() {
+    const wordElement = document.querySelector('.word');
+    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.08; // 8% of the smallest dimension
+    wordElement.style.fontSize = `${fontSize}px`;
+}
+
+window.onload = adjustFontSize;
+window.onresize = adjustFontSize;

@@ -201,8 +201,27 @@ li {
     padding: 5px;
 }
 
+/* Add a class to display a message for orientation change */
+.rotate-notice {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    display: none; /* Hidden by default */
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+/* Landscape layout */
 @media (orientation: landscape) and (max-height: 768px) {
-    /* Your horizontal layout styling */
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+    
     .container {
         display: flex;
         flex-direction: row; /* Horizontally align elements */
@@ -212,39 +231,42 @@ li {
         height: 100vh;
         padding: 0;
     }
-    .button.left {
-        position: absolute;
-        display: flex;
-        flex-direction: row; /* Horizontally align elements */
-        justify-content: center;
-        align-items: center;
-        left: 0%;
-        top: 50%;
-        padding: 30px;
-        width: 20vw;
-        height: 100vh;
-        border-radius: 3px;
-        transform: translateY(-50%);
-    }
+    .button.left,
     .button.right {
         position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20vw; /* Adjust button width */
+        height: 100vh; /* Full height */
+        padding: 30px;
+        border-radius: 3px;
         display: flex;
-        flex-direction: row; /* Horizontally align elements */
         justify-content: center;
         align-items: center;
-        right: 0%;
-        top: 50%;
-        padding: 30px;
-        width: 20vw;
-        height: 100vh;
-        border-radius: 3px;
-        transform: translateY(-50%);
+        font-size: 1.5em;
+        color: #fff;
+    }
+    .button.left {
+        left: 0;
+        background-color: rgb(81, 150, 81);
+    }
+    .button.right {
+        right: 0;
+        background-color: rgb(230, 106, 106);
     }
     .word {
-        font-size: 5em;
+        font-size: 8vw; /* Adjust font size relative to viewport width */
+        max-width: 90%;
     }
-    /* Hide content if portrait mode */
+    /* Hide rotate notice when in landscape */
     .rotate-notice {
         display: none;
+    }
+}
+
+/* Portrait layout styles to show notice */
+@media (orientation: portrait) {
+    .rotate-notice {
+        display: block; /* Show the rotate notice */
     }
 }
