@@ -3,7 +3,9 @@
 {% block title %}Brainboost AI - Review Definitions{% endblock %}
 
 {% block content %}
-<form action="{{ url_for('lists') }}" method="POST" id="saveForm">
+<form action="{{ url_for('save_definitions') }}" method="POST" id="saveForm">
+  <input type="hidden" name="_method" value="POST">
+  <input type="hidden" name="list_name" value="{{ list_name }}">
   <div class="container def">
       <h2 id="listName">{{ list_name }}</h2>
       {% for word in word_list %}
@@ -32,9 +34,7 @@
       </div>
       {% endfor %}
       <div class="actions">
-          <button type="submit" class="btn save">
-              <a href="{{ url_for('lists') }}">Save</a>
-          </button>
+          <button type="submit" class="btn save">Save</button>
           <button type="button" class="btn cancel">
               <a id="cancel" href="{{ url_for('list_create') }}">Cancel</a>
           </button>
