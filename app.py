@@ -48,6 +48,32 @@ def add_words():
     # If it's a GET request, just render the form
     return render_template('vocabularylist/addwords.html', list_name=list_name, count=count)
 
+# Route for saving definitions
+@app.route('/save_definitions', methods=['POST'])
+def save_definitions():
+    
+    # Retrieve list_name, words, definitions, and examples from form data
+    list_name = request.form.get('list_name', '')
+    words = request.form.getlist('words[]')
+    definitions = request.form.getlist('definitions[]')
+    examples = request.form.getlist('examples[]')
+    
+    # Create a list of dictionaries for the CSV writer
+    data = [
+        {
+            'word': word,
+            'definition': definition,
+            'example_sentence': example
+        }
+        for word, definition, example in zip(words, definitions, examples)
+    ]
+    
+    # Overwrite the existing CSV file with the new data
+    csv_handler.write_csv(list_name, data)
+    
+    return redirect(url_for('lists'))
+
+
 # Route for creating Vocabulary Lists
 @app.route('/listcreate', methods=['GET', 'POST'])
 def list_create():
@@ -76,6 +102,15 @@ def review_definitions():
     else:
         # If no list name is provided, redirect to the lists page
         return redirect(url_for('lists'))
+    
+# Route to delete a Vocabulary List
+@app.route('/delete_list/<list_name>', methods=['DELETE'])
+def delete_list(list_name):
+    try:
+        csv_handler.delete_csv(list_name)
+        return jsonify({'success': True}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Route for displaying QR Code
 @app.route('/qrcode')
