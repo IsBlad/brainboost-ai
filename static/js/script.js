@@ -37,6 +37,6 @@ window.onclick = function(event) {
 // Form submission alert
 document.getElementById("loginForm").onsubmit = function(event) {
   event.preventDefault(); // Prevents page reload
-  alert("Oops! This function will be implemented soon! Please bear with us. <3");
+  alert("Feature coming soon!");
   modal.style.display = "none"; // Closes modal after submission
 }
