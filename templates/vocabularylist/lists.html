@@ -7,13 +7,12 @@
     <h1>My Vocabulary Lists</h1>
     <div class="card-container">
         {% for list_name, count in wordlists_and_counts.items() %}
-        <div class="card" id="card-{{ list_name }}">
-            <!-- Trashcan icon as an inline SVG -->
-            <span class="close" onclick="deleteCard('{{ list_name }}')">
+        <div class="card" data-list-name="{{ list_name }}">
+            <button class="close delete-btn" aria-label="Delete list">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#EDE3DE" viewBox="0 0 24 24">
                     <path d="M3 6h18v2H3V6zm2 4h14v12H5V10zm5 2v8H8v-8h2zm4 0v8h-2v-8h2zm4 0v8h-2v-8h2zm-7-8V2h4v2h5v2H5V4h5z"/>
                 </svg>
-            </span>
+            </button>
             <h2>{{ list_name }}</h2>
             <p>{{ count }} words</p>
             <div class="card-buttons">
@@ -31,37 +30,60 @@
 {% block extra_scripts %}
 <script src="{{ url_for('static', filename='js/lists.js') }}"></script>
 <script>
-function editList(listName) {
-    window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
+document.addEventListener('DOMContentLoaded', function() {
+    const cardContainer = document.querySelector('.card-container');
+
+    cardContainer.addEventListener('click', function(event) {
+        // Find the closest parent card and button that was clicked
+        const card = event.target.closest('.card');
+        const deleteBtn = event.target.closest('.delete-btn');
+        const actionBtn = event.target.closest('[data-action]');
+
+        if (!card) return;
+
+        const listName = card.dataset.listName;
+
+        if (deleteBtn) {
+            handleDelete(card, listName);
+        } else if (actionBtn) {
+            handleAction(actionBtn.dataset.action, listName);
+        }
+    });
+});
+
+function handleDelete(card, listName) {
+    console.log('Attempting to delete:', listName); // Debug log
+
+    if (!confirm(`Are you sure you want to delete the list "${listName}"?`)) {
+        return;
+    }
+
+    fetch(`/delete_list/${encodeURIComponent(listName)}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        console.log('Delete response:', response.status); // Debug log
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Delete successful:', data); // Debug log
+        card.remove();
+    })
+    .catch(error => {
+        console.error('Delete error:', error); // Debug log
+        alert(`Failed to delete the list: ${error.message}`);
+    });
 }
 
-// Function to delete a vocabulary list
-function deleteCard(listName) {
-    // Confirm deletion with the user
-    if (confirm(`Are you sure you want to delete the list "${listName}"?`)) {
-        fetch(`/delete_list/${listName}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Remove the card element from the DOM if successful
-                const card = document.getElementById(`card-${listName}`);
-                if (card) {
-                    card.remove();
-                }
-            } else {
-                // Show an error message if deletion failed
-                alert("Failed to delete the list. Please try again.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("An error occurred. Please try again.");
-        });
-    }
+function editList(listName) {
+window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
 }
 </script>
 {% endblock %}

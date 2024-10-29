@@ -826,6 +826,13 @@ h1 {
   fill: rgb(70, 69, 69); /* Color on hover */
 }
 
+.delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* Card Heading */
 .card h2 {
     font-size: 1.5rem;
