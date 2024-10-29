@@ -14,9 +14,6 @@ const sound2 = document.getElementById('sound2'); // Pass sound
 const sound3 = document.getElementById('sound3'); // Timer sound
 const sound4 = document.getElementById('sound4'); // Game finished sound
 
-// Flag to check if timer sound is playing
-let isTimerSoundPlaying = false;
-
 function adjustFontSize() {
     const wordElement = document.querySelector('.word');
 
@@ -87,10 +84,8 @@ function updateTimer() {
     document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
     // Play sound3 when there are only 10 seconds left
-    if (timeRemaining === 10 && !isTimerSoundPlaying) {
-        sound3.loop = true; // Set the sound to loop
+    if (timeRemaining === 10) {
         sound3.play(); // Play timer sound
-        isTimerSoundPlaying = true; // Mark the timer sound as playing
     }
 
     if (timeRemaining <= 0) {
@@ -102,9 +97,6 @@ function updateTimer() {
 function endGame() {
     clearInterval(timerInterval); // Stop the timer
     sound4.play(); // Play finished sound
-    sound3.pause(); // Stop the timer sound
-    sound3.currentTime = 0; // Reset the timer sound to the beginning
-    isTimerSoundPlaying = false; // Reset the flag
     document.querySelector(".container").style.display = "none"; // Hide game container
     document.getElementById("endPage").style.display = "flex"; // Show end page
 
