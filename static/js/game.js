@@ -8,25 +8,32 @@ let score = 0;
 const correctWords = [];
 const passedWords = [];
 
-// Initialize audio elements
+// Initialize audio elements with a fallback in case they aren’t available yet
 const sound1 = document.getElementById('sound1'); // Correct sound
 const sound2 = document.getElementById('sound2'); // Pass sound
 const sound3 = document.getElementById('sound3'); // Timer sound
 const sound4 = document.getElementById('sound4'); // Game finished sound
 
+// Function to play a sound without interruption
+function playSound(sound) {
+    const soundClone = sound.cloneNode(); // Clone the audio element
+    soundClone.play();
+}
+
 function adjustFontSize() {
     const wordElement = document.querySelector('.word');
-
-    // Increase this percentage to make text larger
-    const fontSize = Math.max(Math.min(window.innerWidth, window.innerHeight) * 0.1, 30); // 10% of the smallest dimension, minimum font size of 30px
+    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.08;
     wordElement.style.fontSize = `${fontSize}px`;
 }
 
-// Add event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    adjustFontSize(); // Initial fit
-    window.addEventListener('resize', adjustFontSize); // Refit on resize
-});
+function checkOrientation() {
+    if (window.innerHeight > window.innerWidth) {
+        // Show a warning message to rotate the device
+        document.getElementById("rotate-notice").style.display = "flex"; // Show the notice
+    } else {
+        document.getElementById("rotate-notice").style.display = "none"; // Hide the notice
+    }
+}
 
 // Start the game and initialize the game page
 function startGame() {
@@ -50,29 +57,27 @@ function startGame() {
     // Start the countdown timer
     timerInterval = setInterval(updateTimer, 1000);
 
-    // Adjust the font size for the first word
+    // Adjust font size for the first word
     adjustFontSize();
 }
 
 // Function to change to the next word
 function nextWord(action) {
     if (action === 'correct') {
-        score++; // Increment score if "Correct" is clicked
-        correctWords.push(words[currentIndex]); // Store the correct word
-        sound1.play(); // Play correct sound
+        score++;
+        correctWords.push(words[currentIndex]);
+        playSound(sound1);
     } else if (action === 'pass') {
-        passedWords.push(words[currentIndex]); // Store the passed word
-        sound2.play(); // Play pass sound
+        passedWords.push(words[currentIndex]);
+        playSound(sound2);
     }
 
-    // Move to the next word in the array
     currentIndex = (currentIndex + 1) % words.length;
 
-    // Check if we've gone through all the words
     if (currentIndex === 0) {
-        endGame(); // End the game if all words have been displayed
+        endGame();
     } else {
-        document.getElementById("wordText").innerText = words[currentIndex]; // Display next word
+        document.getElementById("wordText").innerText = words[currentIndex];
     }
 }
 
@@ -83,27 +88,19 @@ function updateTimer() {
     let seconds = timeRemaining % 60;
     document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-    // Play sound3 when there are only 10 seconds left
-    if (timeRemaining === 10) {
-        sound3.play(); // Play timer sound
-    }
+    if (timeRemaining === 10) playSound(sound3);
 
-    if (timeRemaining <= 0) {
-        endGame(); // End the game when time runs out
-    }
+    if (timeRemaining <= 0) endGame();
 }
 
 // Function to end the game and show the end page with the score
 function endGame() {
-    clearInterval(timerInterval); // Stop the timer
-    sound4.play(); // Play finished sound
-    document.querySelector(".container").style.display = "none"; // Hide game container
-    document.getElementById("endPage").style.display = "flex"; // Show end page
+    clearInterval(timerInterval);
+    playSound(sound4);
+    document.querySelector(".container").style.display = "none";
+    document.getElementById("endPage").style.display = "flex";
 
-    // Display the final score
     document.getElementById("finalScore").innerText = `Score: ${score}`;
-
-    // Display the words in the end page
     displayResults();
 }
 
@@ -112,50 +109,37 @@ function displayResults() {
     const correctList = document.getElementById("correctWords");
     const passedList = document.getElementById("passedWords");
 
-    // Clear previous results
     correctList.innerHTML = '';
     passedList.innerHTML = '';
 
-    // Create list items for correct words
     correctWords.forEach(word => {
         const li = document.createElement("li");
         li.innerText = word;
-        li.style.color = "green"; // Set color for correct words
+        li.style.color = "green";
         correctList.appendChild(li);
     });
 
-    // Create list items for passed words
     passedWords.forEach(word => {
         const li = document.createElement("li");
         li.innerText = word;
-        li.style.color = "red"; // Set color for passed words
+        li.style.color = "red";
         passedList.appendChild(li);
     });
 }
 
 // Function to restart the game
 function restartGame() {
-    startGame(); // Start a new game
+    startGame();
 }
 
-// Initialize the game when the page loads
+// Consolidated window load events
 window.onload = function() {
-    startGame();       // Start the game
-    adjustFontSize();  // Adjust font size on load
+    startGame();
+    adjustFontSize();
+    checkOrientation();
 };
 
-function checkOrientation() {
-    if (window.innerHeight > window.innerWidth) {
-        // Show a warning message to rotate the device
-        document.getElementById("rotate-notice").style.display = "flex"; // Show the notice
-    } else {
-        document.getElementById("rotate-notice").style.display = "none"; // Hide the notice
-    }
-}
-
-// Add event listeners
-window.addEventListener("resize", checkOrientation);
-window.addEventListener("orientationchange", checkOrientation);
-
-// Call the function on load
-window.onload = checkOrientation;
+window.onresize = function() {
+    adjustFontSize();
+    checkOrientation();
+};

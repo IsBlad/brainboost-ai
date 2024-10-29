@@ -7,35 +7,6 @@
 {% endblock %}
 
 {% block content %}
-<div id="rotate-notice">
-    <p>Turn me sideways to play!</p>
-    <img src="static/img/phone-rotate-landscape.png" class="rotate-icon" alt="Rotate phone icon">
-</div>
-<!-- Sound elements -->
-<audio id="sound1" src="{{ url_for('static', filename='sounds/correct.mp3') }}"></audio>
-<audio id="sound2" src="{{ url_for('static', filename='sounds/pass.mp3') }}"></audio>
-<audio id="sound3" src="{{ url_for('static', filename='sounds/timer.mp3') }}"></audio>
-<audio id="sound4" src="{{ url_for('static', filename='sounds/finished.mp3') }}"></audio>
-<!-- Game Page -->
-<div class="container">
-    <div class="button right" onclick="nextWord('pass')">Pass</div>
-    <div class="word">
-        <div id="wordText"></div>
-        <div class="timer" id="timer">1:00</div>
-    </div>
-    <div class="button left" onclick="nextWord('correct')">Correct</div>
-</div>
-<!-- End Page -->
-<div class="end-page" id="endPage">
-    <div class="end-score" id="finalScore">Score: 0</div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Words Up - Game</title>
-    <link href="static/css/game.css" rel="stylesheet">
-</head>
 <body>
     <div id="rotate-notice">
         <p>Turn me sideways to play!</p>
