@@ -199,6 +199,10 @@ a {
     padding: 40px;
     text-align: center;
     z-index: 2000;
+    overflow-y: auto;
+    overflow-x: hidden; /* Ensure it doesn’t scroll horizontally */
+    height: 100vh; /* Full viewport height to enable scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
 }
 
 .end-score {
@@ -300,6 +304,10 @@ li {
     /* Hide rotate notice when in landscape */
     #rotate-notice {
         display: none;
+    }
+
+    .end-page {
+        overflow-y: auto;
     }
 }
 
