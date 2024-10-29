@@ -1,7 +1,7 @@
 
 # Website URLs
 # BASE_URL = "http://127.0.0.1:5000" # Local URL
-BASE_URL = "http://klaw02.pythonanywhere.com" # Python Anywhere URL
+BASE_URL = "https://klaw02.pythonanywhere.com" # Python Anywhere URL
 
 # File directory paths
 API_KEY_PATH = "instance/api_key.toml"
