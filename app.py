@@ -2,9 +2,9 @@ import base64
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 from config import constants
-from csv_handler import CSVHandler
-from openai_client import OpenAIClient
-from qr_code_generator import QRCodeGenerator
+from utils.csv_handler import CSVHandler
+from utils.openai_client import OpenAIClient
+from utils.qr_code_generator import QRCodeGenerator
 
 # Initialise the Flask app
 app = Flask(__name__)
