@@ -8,16 +8,35 @@ let score = 0;
 const correctWords = [];
 const passedWords = [];
 
-// Initialize audio elements with a fallback in case they aren’t available yet
-const sound1 = document.getElementById('sound1'); // Correct sound
-const sound2 = document.getElementById('sound2'); // Pass sound
-const sound3 = document.getElementById('sound3'); // Timer sound
-const sound4 = document.getElementById('sound4'); // Game finished sound
+// Preload audio files when the game starts
+const audioFiles = {
+    correct: new Audio('/static/sounds/correct.mp3'),  // Update paths to match your actual audio files
+    pass: new Audio('/static/sounds/pass.mp3'),
+    timer: new Audio('/static/sounds/timer.mp3'),
+    finish: new Audio('/static/sounds/finish.mp3')
+};
 
-// Function to play a sound without interruption
-function playSound(sound) {
-    const soundClone = sound.cloneNode(); // Clone the audio element
-    soundClone.play();
+// Preload all audio files
+function preloadAudio() {
+    Object.values(audioFiles).forEach(audio => {
+        audio.load();
+        // Optional: preload by playing silently
+        audio.volume = 0;
+        audio.play().catch(() => {});
+        audio.pause();
+        audio.volume = 1;
+        audio.currentTime = 0;
+    });
+}
+
+// Replace the playSound function
+function playSound(type) {
+    const sound = audioFiles[type];
+    if (!sound) return;
+    
+    // Reset and play
+    sound.currentTime = 0;
+    sound.play().catch(console.error);
 }
 
 function adjustFontSize() {
@@ -66,10 +85,10 @@ function nextWord(action) {
     if (action === 'correct') {
         score++;
         correctWords.push(words[currentIndex]);
-        playSound(sound1);
+        playSound('correct');  // Updated to use string identifier
     } else if (action === 'pass') {
         passedWords.push(words[currentIndex]);
-        playSound(sound2);
+        playSound('pass');     // Updated to use string identifier
     }
 
     currentIndex = (currentIndex + 1) % words.length;
@@ -89,18 +108,18 @@ function updateTimer() {
     document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
     if (timeRemaining <= 10 && timeRemaining > 0) {
-        sound3.play();
+        playSound('timer');    // Updated to use string identifier
     }
 
     if (timeRemaining === 0) {
-        endGame(); // Call endGame directly; sound4 will be played there
+        endGame();
     }
 }
 
 // Function to end the game and show the end page with the score
 function endGame() {
     clearInterval(timerInterval);
-    playSound(sound4);
+    playSound('finish');       // Updated to use string identifier
     document.querySelector(".container").style.display = "none";
     document.getElementById("endPage").style.display = "flex";
 
@@ -138,6 +157,7 @@ function restartGame() {
 
 // Consolidated window load events
 window.onload = function() {
+    preloadAudio();           // Add preloading
     startGame();
     adjustFontSize();
     checkOrientation();

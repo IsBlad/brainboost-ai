@@ -1,13 +1,13 @@
 import base64
 import io
 import os
-
+import sys
 from PIL import Image
 
 from config.constants import BASE_URL, DATA_DIR, TESTS_DIR
-from csv_handler import CSVHandler
-from openai_client import OpenAIClient
-from qr_code_generator import QRCodeGenerator
+from utils.csv_handler import CSVHandler
+from utils.openai_client import OpenAIClient
+from utils.qr_code_generator import QRCodeGenerator
 
 def main():
     '''
@@ -26,7 +26,7 @@ def main():
     test_delete_csv()
 
     # QR Code Generator Tests
-    test_generate_qr_code(activity="WordsUp", list_name="Animals")
+    test_generate_qr_code(activity="wordsup", list_name="test_definitions")
 
     # TODO: List name integration test
     # TODO: Word list integration test
@@ -145,11 +145,11 @@ def test_delete_csv(filename="test_write"):
 ### QR Code Generator Tests ###
 qr_generator = QRCodeGenerator()
 
-def test_generate_qr_code(activity="WordsUp", list_name="Animals"):
+def test_generate_qr_code(activity="wordsup", list_name="test_definitions"):
     '''
     Tests the generate_qr_code method. 
 
-    Generates a QR code for the given activity and list name (default: WordsUp, Animals).
+    Generates a QR code for the given activity and list name (default: wordsup, test_definitions).
     Saves the QR code as a PNG file in the {TESTS_DIR}/qr_codes directory for verification.
 
     The QR code links to {BASE_URL}/game?activity={activity}&list={list_name}.
