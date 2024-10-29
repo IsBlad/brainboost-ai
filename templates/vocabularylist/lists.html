@@ -16,8 +16,10 @@
             <h2>{{ list_name }}</h2>
             <p>{{ count }} words</p>
             <div class="card-buttons">
-                <button class="btn edit-button" data-action="edit">Edit</button>
-                <button class="btn games-button" data-action="games">Games</button>
+                <button class="btn edit-button" onclick="editList('{{ list_name }}')">Edit</button>
+                <button class="btn games-button" onclick="window.location.href='{{ url_for('qr_code', activity='wordsup', list=list_name) }}'">
+                    Games
+                </button>
             </div>
         </div>
         {% endfor %}
@@ -28,6 +30,11 @@
 {% block extra_scripts %}
 <script src="{{ url_for('static', filename='js/lists.js') }}"></script>
 <script>
+function editList(listName) {
+
+window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const cardContainer = document.querySelector('.card-container');
 
@@ -78,14 +85,6 @@ function handleDelete(card, listName) {
         console.error('Delete error:', error); // Debug log
         alert(`Failed to delete the list: ${error.message}`);
     });
-}
-
-function handleAction(action, listName) {
-    if (action === 'edit') {
-        window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
-    } else if (action === 'games') {
-        window.location.href = `/qr_code?activity=wordsup&list=${encodeURIComponent(listName)}`;
-    }
 }
 </script>
 {% endblock %}
