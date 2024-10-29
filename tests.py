@@ -1,11 +1,13 @@
-from openai_client import OpenAIClient
-from csv_handler import CSVHandler
-from qr_code_generator import QRCodeGenerator
-from config.constants import BASE_URL, DATA_DIR, TESTS_DIR
-import os
 import base64
-from PIL import Image
 import io
+import os
+
+from PIL import Image
+
+from config.constants import BASE_URL, DATA_DIR, TESTS_DIR
+from csv_handler import CSVHandler
+from openai_client import OpenAIClient
+from qr_code_generator import QRCodeGenerator
 
 def main():
     '''
