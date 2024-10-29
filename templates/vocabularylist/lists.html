@@ -30,11 +30,6 @@
 {% block extra_scripts %}
 <script src="{{ url_for('static', filename='js/lists.js') }}"></script>
 <script>
-function editList(listName) {
-
-window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const cardContainer = document.querySelector('.card-container');
 
@@ -85,6 +80,10 @@ function handleDelete(card, listName) {
         console.error('Delete error:', error); // Debug log
         alert(`Failed to delete the list: ${error.message}`);
     });
+}
+
+function editList(listName) {
+window.location.href = `/reviewdefinitions?list=${encodeURIComponent(listName)}`;
 }
 </script>
 {% endblock %}
