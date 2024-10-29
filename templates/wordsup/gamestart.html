@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Words Up - Start</title>
-    <link rel="stylesheet" href="/static/css/game.css">
-</head>
-<body>
-    <div class="card">
-        <h1>Words Up</h1>
+{% extends "wordsup/game_layout.html" %}
+
+{% block title %}Words Up - Start{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Words Up</h1>
   
-        <p class="game-steps">
-            1. Show words to your team - not yourself! 👥<br>
-            2. Team gives clues - no saying the word! 🤫<br>
-            3. Guess as many words as you can in 1 minute!<br>
-        </p>
-        <div class="start-button">
-            <span><a href="{{ url_for('game', activity=activity, list=list) }}">Start</a></span>
-        </div>
+    <p class="game-steps">
+        1. Show words to your team - not yourself! 👥<br>
+        2. Team gives clues - no saying the word! 🤫<br>
+        3. Guess as many words as you can in 1 minute!<br>
+    </p>
+    <div class="start-button">
+        <span><a href="{{ url_for('game', activity=activity, list=list) }}">Start</a></span>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
