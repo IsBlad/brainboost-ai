@@ -1,5 +1,6 @@
-import qrcode
 import io
+import qrcode
+
 from config.constants import BASE_URL
 
 class QRCodeGenerator:

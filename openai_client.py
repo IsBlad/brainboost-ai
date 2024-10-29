@@ -1,6 +1,7 @@
-from openai import OpenAI
-import toml
 import json
+import toml
+from openai import OpenAI
+
 from config.constants import CEFR_LEVEL, SYSTEM_MESSAGE, JSON_SCHEMA, API_KEY_PATH
 
 class OpenAIClient:
