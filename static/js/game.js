@@ -88,9 +88,13 @@ function updateTimer() {
     let seconds = timeRemaining % 60;
     document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-    if (timeRemaining === 10) playSound(sound3);
+    if (timeRemaining <= 10 && timeRemaining > 0) {
+        sound3.play();
+    }
 
-    if (timeRemaining <= 0) endGame();
+    if (timeRemaining === 0) {
+        endGame(); // Call endGame directly; sound4 will be played there
+    }
 }
 
 // Function to end the game and show the end page with the score
