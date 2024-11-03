@@ -3,6 +3,7 @@ let currentIndex = 0;
 let timeRemaining = 60;
 let timerInterval;
 let score = 0;
+let timerSoundPlayed = false; // Flag to track if the timer sound has been played
 
 // Arrays to store words based on user actions
 const correctWords = [];
@@ -37,8 +38,9 @@ function playSound(type) {
 
 function adjustFontSize() {
     const wordElement = document.querySelector('.word');
-    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.08;
-    wordElement.style.fontSize = `${fontSize}px`;
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize); // Get the root font size in px
+    const desiredSize = Math.min(window.innerWidth, window.innerHeight) * 0.08; // Calculate desired size in px
+    wordElement.style.fontSize = `${desiredSize / rootFontSize}rem`; // Convert to rem
 }
 
 function checkOrientation() {
@@ -62,7 +64,7 @@ function shuffleArray(array) {
 function startGame() {
     // Shuffle words array before starting the game
     shuffleArray(words);
-    
+
     // Show game page and hide end page
     document.querySelector(".container").style.display = "flex";
     document.getElementById("endPage").style.display = "none";
@@ -71,6 +73,7 @@ function startGame() {
     timeRemaining = 60;
     score = 0;
     currentIndex = 0;
+    timerSoundPlayed = false; // Reset the flag when the game restarts
 
     // Clear previous words
     correctWords.length = 0;
@@ -114,8 +117,10 @@ function updateTimer() {
     let seconds = timeRemaining % 60;
     document.getElementById("timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-    if (timeRemaining <= 10 && timeRemaining > 0) {
-        playSound('timer');  
+    // Start the timer sound in a loop when there are 10 seconds left
+    if (timeRemaining === 10 && !timerSoundPlayed) {
+        playSound('timer', true); // Pass `true` to loop the sound
+        timerSoundPlayed = true;
     }
 
     if (timeRemaining === 0) {
