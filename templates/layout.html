@@ -13,7 +13,7 @@
 <body>
     <header class="global-header" id="top-nav">
         <div class="logo">
-            <img src="{{ url_for('static', filename='img/LanguaMate.jpg') }}" alt="Website Logo">
+            <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/LanguaMate.jpg') }}" alt="Website Logo"></a>
         </div>
         <nav>
             <a href="{{ url_for('index') }}">Home</a>
