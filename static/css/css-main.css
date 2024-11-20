@@ -990,3 +990,12 @@ h1 {
     font-size: 1.2rem;
     margin: 0;
 }
+
+.card h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: font-size 0.2s ease;
+}
