@@ -1,7 +1,7 @@
 
 # Website URLs
 # BASE_URL = "http://127.0.0.1:5000" # Local URL
-BASE_URL = "https://languamate.com.au" # 
+BASE_URL = "https://languamate.com" # 
 
 # File directory paths
 API_KEY_PATH = "instance/api_key.toml"
